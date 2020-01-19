@@ -1,0 +1,4 @@
+The contents that are normally in this folder are equivalent to the files extracted by the installer.
+This includes dependencies and all required files.
+
+This is created upon running "fbs freeze", after which its contents are packed into the installer with "fbs release."
