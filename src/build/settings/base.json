@@ -1,6 +1,6 @@
 {
-    "app_name": "AACT Telemetry 2020 UI",
-    "author": "lgonzales",
+    "app_name": "UI2020-",
+    "author": "lgonzalesna",
     "main_module": "src/main/python/main.py",
     "version": "0.0.0"
 }

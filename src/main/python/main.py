@@ -18,6 +18,7 @@ import socket
 import webbrowser
 import ast
 import math
+import logging
 from datetime import datetime
 from PIL import Image
 from PyQt5 import QtCore, QtWidgets, QtGui
@@ -334,6 +335,16 @@ def update_data_gsheets(initial=False,initial_row=2,initial_timeout=10):
 #endregion
 
 #region classes for plots (qwidgets)
+class QTextEditLogger(logging.Handler): #logging as per https://stackoverflow.com/questions/28655198/best-way-to-display-logs-in-pyqt
+    def __init__(self, parent):
+        super().__init__()
+        self.widget = QtWidgets.QPlainTextEdit(parent)
+        self.widget.setReadOnly(True)
+
+    def emit(self, record):
+        msg = self.format(record)
+        self.widget.appendPlainText(msg)
+
 class data_plot_class(FigureCanvas):
     """Ultimately, this is a QWidget (as well as a FigureCanvasAgg, etc.)."""
 
@@ -440,17 +451,26 @@ class ApplicationWindow(QtWidgets.QMainWindow,Ui_MainWindow):
         QtWidgets.QMainWindow.__init__(self)
         self.setupUi(self)
         
+        #logging as referenced above
+        self.logboxwidget = QTextEditLogger(self)
+        self.logboxwidget.setFormatter(logging.Formatter('%(asctime)s - %(levelname)s - %(message)s'))
+        logging.getLogger().addHandler(self.logboxwidget)
+        # You can control the logging level
+        logging.getLogger().setLevel(logging.DEBUG)
+        self.verticalLayout_4.addWidget(self.logboxwidget.widget)
+
         self.widget_2 = data_plots(self.widget_2)
         self.widget_6 = histogram_plot(self.widget_6)
 
         self.pushButton.clicked.connect(self.start_reading)
+        self.pushButton_14.clicked.connect(self.add_msg)
 
         main_timer.timeout.connect(self.update_data)
         #https://eli.thegreenplace.net/2011/04/25/passing-extra-arguments-to-pyqt-slot
         #self.pushButton.clicked.connect(lambda: self.add_msg("a"))
         
-    #def add_msg(self,msg):
-        #self.textEdit.append(time.strftime('%m/%d/%y %H:%M:%S - ')+msg)
+    def add_msg(self):
+        logging.debug('msg')
     def start_reading(self):
         global main_timer
         socket_connect()
