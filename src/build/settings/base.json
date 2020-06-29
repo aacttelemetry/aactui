@@ -1,5 +1,5 @@
 {
-    "app_name": "UI2020-",
+    "app_name": "UI2020-rewrite",
     "author": "lgonzalesna",
     "main_module": "src/main/python/main.py",
     "version": "0.0.0"

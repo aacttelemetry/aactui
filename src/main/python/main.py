@@ -18,7 +18,7 @@ import socket
 import webbrowser
 import ast
 import math
-import logging
+import logging #logging.debug/info/warning/error("str")
 from datetime import datetime
 from PIL import Image
 from PyQt5 import QtCore, QtWidgets, QtGui
@@ -28,11 +28,14 @@ from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.figure import Figure
 #-----------#
 from new2020 import Ui_MainWindow
+from testwindow import Ui_MainWindow2
+from testdialog import Ui_Dialog
 #endregion
 
 #region variables
 #contains socket object
 s = None
+
 
 #for the data graphs
 x = []
@@ -91,10 +94,11 @@ def socket_connect():
         s = socket.socket()          
         s.connect((pi_ip, port))
         data_source = "Socket"
+        s.settimeout(5) #socket blocks for five seconds before giving up
     except ConnectionRefusedError:
-        print("Port hasn't reset yet or the script isn't running. Try again.")
+        logging.error("Port hasn't reset yet or the script isn't running. Try again. (ConnectionRefusedError)")
     except Exception as e:
-        print(e)
+        logging.error(e)
 
 def get_data_sockets():
     global s
@@ -106,7 +110,7 @@ def get_data_sockets():
     #the data-fixing aspects of the db and gsheet functions are not implemented here, as there has yet to be such an issue.
     try:
         received = (s.recv(1024).decode("utf-8"))
-        print(received)
+        logging.debug(received)
         #it seems initial data is screwed up, will need the healing functions eventually
         new = received.split("|")
         if len(new) > 2:
@@ -117,14 +121,14 @@ def get_data_sockets():
             queue.append(temp_list)
         
         if len(new) == 0:
-            print("Connection seems to have been dropped; halting.")
+            logging.error("Connection seems to have been dropped; halting.")
             if s != None:
                 main_timer.stop()
                 s.close()
                 s = None
                 data_source = "Nothing"
     except Exception as e:
-        print(e)
+        logging.error(e)
         main_timer.stop()
         s.close()
         s = None
@@ -209,11 +213,11 @@ def update_data_db(initial=False,initial_row=2,initial_timeout=10):
         if len(response) == 2:
             failed_attempts += 1
             if failed_attempts >= timeout:
-                print('Timeout limit reached. Ending data read.')
+                logging.info('Timeout limit reached. Ending data read.')
                 halt = True
                 return
             else:
-                print('No new data found. Retrying %s more time(s).'%(timeout-failed_attempts))
+                logging.info('No new data found. Retrying %s more time(s).'%(timeout-failed_attempts))
         else:
             first_timestamp_read = response[0][0]
             for i in response: #Perform initial pass. Returns all unique and duplicated timestamps to queued_timestamps.
@@ -229,7 +233,7 @@ def update_data_db(initial=False,initial_row=2,initial_timeout=10):
                     elif first_timestamp_read == i[0]:
                         pass # ignore if it's part of the first timestamp read
                     else:
-                        print('Duplicate found. Reading as %s.'%(last_queued_timestamp + 1)) # if it's a regular duplicate, use it as the successive value to the last timestamp
+                        logging.info('Duplicate found. Reading as %s.'%(last_queued_timestamp + 1)) # if it's a regular duplicate, use it as the successive value to the last timestamp
                         i[0] = str(last_queued_timestamp + 1)
                         last_queued_timestamp = int(i[0])
                         queue.append(i)
@@ -243,13 +247,13 @@ def update_data_db(initial=False,initial_row=2,initial_timeout=10):
         halt = True
     if len(queue) > 0:
         if int(queue[0][0]) - last_read_timestamp > 1 and last_read_timestamp != 0:
-            print('attempting to heal data after timestamp %s'%last_read_timestamp) # if data is missing, replace it with the last known values. this should never occur for more than one or two readings.
+            logging.info('attempting to heal data after timestamp %s'%last_read_timestamp) # if data is missing, replace it with the last known values. this should never occur for more than one or two readings.
             heal_attempt = last_queue
             heal_attempt[0] = str(last_read_timestamp + 1)
             queue.insert(0,heal_attempt)
             heal_attempts += 1
             if heal_attempts > timeout:
-                print('Detected too large of a gap between values. Ending script.')
+                logging.info('Detected too large of a gap between values. Ending script.')
                 halt = True
                 return
         else:
@@ -286,11 +290,11 @@ def update_data_gsheets(initial=False,initial_row=2,initial_timeout=10):
         if len(response) == 2:
             failed_attempts += 1
             if failed_attempts >= timeout:
-                print('Timeout limit reached. Ending data read.')
+                logging.info('Timeout limit reached. Ending data read.')
                 halt = True
                 return
             else:
-                print('No new data found. Retrying %s more time(s).'%(timeout-failed_attempts))
+                logging.info('No new data found. Retrying %s more time(s).'%(timeout-failed_attempts))
         else:
             first_timestamp_read = response['values'][0][0]
             for i in response['values']: #Perform initial pass. Returns all unique and duplicated timestamps to queued_timestamps.
@@ -306,7 +310,7 @@ def update_data_gsheets(initial=False,initial_row=2,initial_timeout=10):
                     elif first_timestamp_read == i[0]:
                         pass # ignore if it's part of the first timestamp read
                     else:
-                        print('Duplicate found. Reading as %s.'%(last_queued_timestamp + 1)) # if it's a regular duplicate, use it as the successive value to the last timestamp
+                        logging.info('Duplicate found. Reading as %s.'%(last_queued_timestamp + 1)) # if it's a regular duplicate, use it as the successive value to the last timestamp
                         i[0] = str(last_queued_timestamp + 1)
                         last_queued_timestamp = int(i[0])
                         queue.append(i)
@@ -318,13 +322,13 @@ def update_data_gsheets(initial=False,initial_row=2,initial_timeout=10):
             failed_attempts = 0
     if len(queue) > 0:
         if int(queue[0][0]) - last_read_timestamp > 1 and last_read_timestamp != 0:
-            print('attempting to heal data after timestamp %s'%last_read_timestamp) # if data is missing, replace it with the last known values. this should never occur for more than one or two readings.
+            logging.info('attempting to heal data after timestamp %s'%last_read_timestamp) # if data is missing, replace it with the last known values. this should never occur for more than one or two readings.
             heal_attempt = last_queue
             heal_attempt[0] = str(last_read_timestamp + 1)
             queue.insert(0,heal_attempt)
             heal_attempts += 1
             if heal_attempts > timeout:
-                print('Detected too large of a gap between values. Ending script.')
+                logging.info('Detected too large of a gap between values. Ending script.')
                 halt = True
                 return
         else:
@@ -455,22 +459,53 @@ class ApplicationWindow(QtWidgets.QMainWindow,Ui_MainWindow):
         self.logboxwidget = QTextEditLogger(self)
         self.logboxwidget.setFormatter(logging.Formatter('%(asctime)s - %(levelname)s - %(message)s'))
         logging.getLogger().addHandler(self.logboxwidget)
-        # You can control the logging level
+        #logging level is set below
         logging.getLogger().setLevel(logging.DEBUG)
         self.verticalLayout_4.addWidget(self.logboxwidget.widget)
 
         self.widget_2 = data_plots(self.widget_2)
         self.widget_6 = histogram_plot(self.widget_6)
 
-        self.pushButton.clicked.connect(self.start_reading)
-        self.pushButton_14.clicked.connect(self.add_msg)
+
+        #event handlers
+        #tab 1
+        self.connect_raspi_button.clicked.connect(self.start_reading)
+        
+        #tab 2
+
+        #tab 3
+        self.open_obstacles_button.clicked.connect(self.open_obstacle_table)
+        self.open_guidebook_button.clicked.connect(self.open_herc_book)
+
+        #tab 5
+        self.open_github_button.clicked.connect(self.open_github)
+        self.open_report_button.clicked.connect(self.open_report)
+        self.open_website_button.clicked.connect(self.open_website)
+        self.open_data_button.clicked.connect(self.open_data_spreadsheet)
+
+        #top menu bar
+        self.actionChange_Graph_Size.triggered.connect(self.open_graph_size_dialog)
+        self.actionChange_Read_Rate.triggered.connect(self.open_read_delay_dialog)
+        self.actionHERC_Guidebook.triggered.connect(self.open_graph_size_dialog)
+        self.actionObstacle_Task_Table.triggered.connect(self.open_herc_book)
+        self.actionGithub.triggered.connect(self.open_github)
+        self.actionWebsite.triggered.connect(self.open_website)
+        self.actionReport.triggered.connect(self.open_report)
+        self.actionAbout.triggered.connect(self.open_about_dialog)
 
         main_timer.timeout.connect(self.update_data)
         #https://eli.thegreenplace.net/2011/04/25/passing-extra-arguments-to-pyqt-slot
         #self.pushButton.clicked.connect(lambda: self.add_msg("a"))
-        
-    def add_msg(self):
-        logging.debug('msg')
+
+        self.pushButton_11.clicked.connect(self.open_stream_window)        
+        self.find_row_button.clicked.connect(self.open_dialog_window)
+    def open_dialog_window(self):
+        self.new_dialog = Test_Dialog()
+        self.new_dialog.show()
+    def open_stream_window(self):
+        self.about_dialog = StreamWindow()
+        self.about_dialog.show()
+
     def start_reading(self):
         global main_timer
         socket_connect()
@@ -538,9 +573,53 @@ class ApplicationWindow(QtWidgets.QMainWindow,Ui_MainWindow):
         else:
             pass
             #main_timer.stop()
+    #hmmm
+    def open_herc_book(self):
+        webbrowser.open("https://www.nasa.gov/sites/default/files/atoms/files/edu_herc-guidebook_2020v2.pdf")
+    def open_obstacle_table(self):
+        webbrowser.open("https://docs.google.com/spreadsheets/d/14vqGlR-rk38IQtcsFvLhAfZBQCuorKXU-1DswQZSrjY/edit?usp=sharing")
+    def open_github(self):
+        webbrowser.open("https://github.com/aacttelemetry")
+    def open_website(self):
+        webbrowser.open("https://aacttelemetry.github.io/index.html")
+    def open_report(self):
+        webbrowser.open("https://drive.google.com/open?id=1vNWtVX-0AonVTZm8llp3Dfd-jVqxUuPi")
+    def open_data_spreadsheet(self):
+        pass
+        #webbrowser.open("")
+    def find_equivalent_row(self):
+        pass
+    def open_stream_overlay(self):
+        pass
+    def open_db_file_dialog(self):
+        pass
+    def open_about_dialog(self):
+        pass
+    def open_graph_size_dialog(self):
+        pass
+    def open_read_delay_dialog(self):
+        pass
+
 #endregion
 
 #region other dialogues
+#
+class StreamWindow(QtWidgets.QMainWindow,Ui_MainWindow2):
+    def __init__(self):
+        super().__init__()
+        self.ui = Ui_MainWindow2()
+        self.ui.setupUi(self)
+
+class Test_Dialog(QDialog):
+    global last_queued_timestamp
+    global main_timer
+    def __init__(self):
+        super().__init__()
+        self.ui = Ui_Dialog()
+        self.ui.setupUi(self)
+        main_timer.timeout.connect(self.update_data)
+    def update_data(self):
+        self.ui.label.setText(str(last_queued_timestamp))
 #endregion
 try:
 #region execution
