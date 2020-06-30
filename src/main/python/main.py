@@ -22,7 +22,6 @@ import logging #logging.debug/info/warning/error("str")
 from datetime import datetime
 from PIL import Image
 from PyQt5 import QtCore, QtWidgets, QtGui
-from PyQt5.QtWidgets import QFileDialog, QDialog, QMainWindow
 from numpy import arange, sin, pi
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.figure import Figure
@@ -119,7 +118,9 @@ class global_states:
         self.current_section = '' #competition section
         self.elapsed_section_time = 0 #elapsed time, in seconds, that the section hasn't changed
 
-
+class global_constants:
+    #implement gsheets and external database stuff here
+    pass
 
 #endregion
 
@@ -557,7 +558,7 @@ class StreamWindow(QtWidgets.QMainWindow,Ui_MainWindow2):
         self.ui = Ui_MainWindow2()
         self.ui.setupUi(self)
 
-class Test_Dialog(QDialog):
+class Test_Dialog(QtWidgets.QDialog):
     # * #
     def __init__(self):
         super().__init__()
