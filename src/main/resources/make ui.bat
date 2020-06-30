@@ -1,0 +1,1 @@
+pyuic5 new2020.ui -o new2020.py

@@ -81,7 +81,7 @@ class global_states:
     elapsed_section_time = 0 #elapsed time, in seconds, that the section hasn't changed
 
 
-    def reset_vars(self):
+    def reset_vars(self): #reset to initial states
         #lmao
         self.starting_row = 2
         self.failed_attempts = 0 # The amount of times the client has found no new data.
@@ -124,7 +124,7 @@ class global_constants:
 
 #endregion
 
-#region global functions
+#region global data functions
 def socket_connect(pi_ip='192.168.1.85', port=12348):
     try:
         global_states.socket_object = socket.socket()          
@@ -293,7 +293,7 @@ def update_data_gsheets(initial=False,initial_row=2,initial_timeout=10):
         global_states.lag_time = int(time.time())-global_states.last_read_timestamp
 #endregion
 
-#region classes for plots (qwidgets)
+#region qwidgets
 class QTextEditLogger(logging.Handler): #logging as per https://stackoverflow.com/questions/28655198/best-way-to-display-logs-in-pyqt
     def __init__(self, parent):
         super().__init__()
@@ -303,6 +303,8 @@ class QTextEditLogger(logging.Handler): #logging as per https://stackoverflow.co
     def emit(self, record):
         msg = self.format(record)
         self.widget.appendPlainText(msg)
+
+class 
 
 class data_plot_class(FigureCanvas):
     """Ultimately, this is a QWidget (as well as a FigureCanvasAgg, etc.)."""
@@ -460,7 +462,7 @@ class ApplicationWindow(QtWidgets.QMainWindow,Ui_MainWindow):
         #... all text label updates go here     
         # {"timestamp":<timestamp>,
         # "fitbit_data":[<heartrate>,<pressure>],
-        # "sensor_data":[<humidity[0], temperature[1], pitch[2], roll[3], yaw[4], total global_states.x_data[5], total y[6], total vector count[7],this read vector count[8], internal length constant[9], latitude[10], longitude[11], hdop[12], satellite count[13]>]}
+        # "sensor_data":[<humidity[0], temperature[1], pitch[2], roll[3], yaw[4], total x[5], total y[6], total vector count[7],this read vector count[8], internal length constant[9], latitude[10], longitude[11], hdop[12], satellite count[13]>]}
         # 
             #all tab 1/global labels
             self.global_source_label.setText(global_states.data_source)
