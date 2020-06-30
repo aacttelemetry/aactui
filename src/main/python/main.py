@@ -126,8 +126,6 @@ class global_constants:
 
 #region global functions
 def socket_connect(pi_ip='192.168.1.85', port=12348):
-    pi_ip = '192.168.1.85'
-    port = 12348
     try:
         global_states.socket_object = socket.socket()          
         global_states.socket_object.connect((pi_ip, port))
