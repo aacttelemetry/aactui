@@ -125,8 +125,7 @@ class global_constants:
 #endregion
 
 #region global functions
-def socket_connect():
-    # * #
+def socket_connect(pi_ip='192.168.1.85', port=12348):
     pi_ip = '192.168.1.85'
     port = 12348
     try:
@@ -140,7 +139,6 @@ def socket_connect():
         logging.error(e)
 
 def get_data_sockets():
-    # * #
     #the data-fixing aspects of the db and gsheet functions are not implemented here, as there has yet to be such an issue.
     try:
         received = (global_states.socket_object.recv(1024).decode("utf-8"))
@@ -169,7 +167,6 @@ def get_data_sockets():
         global_states.data_source = "Nothing"
 
 def update_data_db(initial=False,initial_row=2,initial_timeout=10):
-    # * #
     if initial:
         global_states.last_read = initial_row
         global_states.timeout = initial_timeout
@@ -238,7 +235,6 @@ def update_data_db(initial=False,initial_row=2,initial_timeout=10):
         global_states.lag_time = int(time.time())-global_states.last_read_timestamp
 
 def update_data_gsheets(initial=False,initial_row=2,initial_timeout=10):
-    # * #
     if initial:
         global_states.last_read = initial_row
         global_states.timeout = initial_timeout
@@ -338,7 +334,6 @@ class data_plots(data_plot_class):
         global_states.main_timer.timeout.connect(self.update_figure)
 
     def update_figure(self):
-        # * #
         if global_states.data_source != "Nothing" and global_states.queue:
             if len(global_states.x_data) > global_states.max_values:
                 for i in range(0,(len(global_states.x_data)-global_states.max_values)):
@@ -391,7 +386,6 @@ class histogram_plot(heartrate_histogram_class):
         global_states.main_timer.timeout.connect(self.update_figure)
 
     def update_figure(self):
-        # * #
         if global_states.data_source != "Nothing" and global_states.queue:
             self.axes1.cla()
             self.axes1.hist(global_states.heartrate_historical,bins=20)
@@ -458,12 +452,10 @@ class ApplicationWindow(QtWidgets.QMainWindow,Ui_MainWindow):
         self.about_dialog.show()
 
     def start_reading(self):
-        # * #
         socket_connect()
         global_states.main_timer.start(1000)
         
     def update_data(self):
-        # * #
         if global_states.data_source == "Socket" and global_states.socket_object != None:
             get_data_sockets()
         if len(global_states.queue) > 1:
@@ -559,7 +551,6 @@ class StreamWindow(QtWidgets.QMainWindow,Ui_MainWindow2):
         self.ui.setupUi(self)
 
 class Test_Dialog(QtWidgets.QDialog):
-    # * #
     def __init__(self):
         super().__init__()
         self.ui = Ui_Dialog()
