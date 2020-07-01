@@ -1,0 +1,8 @@
+Add an image to an application:
+https://www.learnpyqt.com/blog/adding-images-to-pyqt5-applications/
+
+Implementation of AnimationLabel:
+https://stackoverflow.com/questions/48191399/pyqt-fading-a-qlabel
+
+Convert string hex to RGB ints:
+https://stackoverflow.com/questions/29643352/converting-hex-to-rgb-value-in-python/29643643
