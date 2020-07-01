@@ -9,3 +9,14 @@ https://stackoverflow.com/questions/29643352/converting-hex-to-rgb-value-in-pyth
 
 Embed a matplotlib plot in PyQt5:
 https://matplotlib.org/1.5.3/examples/user_interfaces/embedding_in_qt5.html
+
+MongoDB Atlas and Python tutorial:
+https://www.mongodb.com/blog/post/getting-started-with-python-and-mongodb
+
+No module named res_rc (working with resource files):
+https://stackoverflow.com/questions/41301204/importerror-no-module-named-resource-rc
+
+Using fbs's resource folder (correctly):
+https://github.com/mherrmann/fbs-tutorial#a-more-interesting-example
+
+

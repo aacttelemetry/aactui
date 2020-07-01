@@ -546,12 +546,16 @@ class ApplicationWindow(QtWidgets.QMainWindow,Ui_MainWindow):
 #region other dialogues
 #
 class StreamWindow(QtWidgets.QMainWindow,Ui_OverlayWindow):
-    #the icon doesn't show up on pixmap for some reason, try setting it from __init__?
+    #the icon will show with the use of qt resource files, but will normally fail without absolute references
+    #consider trying to use fbs's resource system instead?
+    #radio buttons are grouped incorrectly, will probably remove those radio buttons and replace with "color for keyable - lineedit - button('set')"
     def __init__(self):
         super().__init__()
         self.ui = Ui_OverlayWindow()
         self.ui.setupUi(self)
         self.ui.start_updating_button.clicked.connect(self.start_anim)
+        #self.ui.test_icon.setPixmap(QtGui.QPixmap('C:/Users/Kisun/Desktop/ui-new/src/main/resources/flag-test.svg'))
+        #self.ui.test_icon.setPixmap(QtGui.QPixmap('flag.png'))
     def start_anim(self):
         self.ui.test_anim_label.startAnimation()
 

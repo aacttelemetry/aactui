@@ -16,62 +16,60 @@
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
-     <widget class="QWidget" name="widget" native="true">
-      <property name="minimumSize">
-       <size>
-        <width>800</width>
-        <height>600</height>
-       </size>
-      </property>
-      <property name="autoFillBackground">
-       <bool>false</bool>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background:white</string>
-      </property>
-      <widget class="AnimationLabel" name="test_anim_label">
-       <property name="geometry">
-        <rect>
-         <x>660</x>
-         <y>490</y>
-         <width>91</width>
-         <height>51</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Exo 2</family>
-         <pointsize>20</pointsize>
-        </font>
-       </property>
-       <property name="styleSheet">
-        <string notr="true"/>
-       </property>
-       <property name="text">
-        <string>Task 1</string>
-       </property>
+     <widget class="QTabWidget" name="tabWidget">
+      <widget class="QWidget" name="tab">
+       <attribute name="title">
+        <string>Tab 1</string>
+       </attribute>
+       <widget class="AnimationLabel" name="test_anim_label">
+        <property name="geometry">
+         <rect>
+          <x>480</x>
+          <y>269</y>
+          <width>91</width>
+          <height>51</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Exo 2</family>
+          <pointsize>20</pointsize>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true"/>
+        </property>
+        <property name="text">
+         <string>Task 1</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="test_icon">
+        <property name="geometry">
+         <rect>
+          <x>150</x>
+          <y>80</y>
+          <width>251</width>
+          <height>261</height>
+         </rect>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>50</width>
+          <height>50</height>
+         </size>
+        </property>
+        <property name="pixmap">
+         <pixmap resource="res.qrc">:/images/flag.png</pixmap>
+        </property>
+        <property name="scaledContents">
+         <bool>true</bool>
+        </property>
+       </widget>
       </widget>
-      <widget class="QLabel" name="test_icon">
-       <property name="geometry">
-        <rect>
-         <x>580</x>
-         <y>490</y>
-         <width>51</width>
-         <height>51</height>
-        </rect>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">color:white</string>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-       <property name="pixmap">
-        <pixmap>flag-test.svg</pixmap>
-       </property>
-       <property name="scaledContents">
-        <bool>true</bool>
-       </property>
+      <widget class="QWidget" name="tab_2">
+       <attribute name="title">
+        <string>Tab 2</string>
+       </attribute>
       </widget>
      </widget>
     </item>
@@ -313,6 +311,8 @@
    <header>anim</header>
   </customwidget>
  </customwidgets>
- <resources/>
+ <resources>
+  <include location="res.qrc"/>
+ </resources>
  <connections/>
 </ui>
