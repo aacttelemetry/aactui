@@ -29,6 +29,50 @@
       <property name="styleSheet">
        <string notr="true">background:black</string>
       </property>
+      <widget class="AnimationLabel" name="test_anim_label">
+       <property name="geometry">
+        <rect>
+         <x>660</x>
+         <y>490</y>
+         <width>91</width>
+         <height>51</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Exo 2</family>
+         <pointsize>20</pointsize>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">color:white</string>
+       </property>
+       <property name="text">
+        <string>Task 1</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="test_icon">
+       <property name="geometry">
+        <rect>
+         <x>580</x>
+         <y>490</y>
+         <width>51</width>
+         <height>51</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">color:white</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="pixmap">
+        <pixmap>flag-test.svg</pixmap>
+       </property>
+       <property name="scaledContents">
+        <bool>true</bool>
+       </property>
+      </widget>
      </widget>
     </item>
     <item>
@@ -52,35 +96,35 @@
          <item row="1" column="1">
           <layout class="QVBoxLayout" name="verticalLayout_3">
            <item>
-            <widget class="QCheckBox" name="checkBox_4">
+            <widget class="QCheckBox" name="cumulative_position_checkbox">
              <property name="text">
               <string>Cumulative positioning data</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QCheckBox" name="checkBox_5">
+            <widget class="QCheckBox" name="gps_checkbox">
              <property name="text">
               <string>Additional GPS data</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QCheckBox" name="checkBox_6">
+            <widget class="QCheckBox" name="displacement_checkbox">
              <property name="text">
               <string>Displacement</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QCheckBox" name="checkBox_8">
+            <widget class="QCheckBox" name="environmental_checkbox">
              <property name="text">
-              <string>Orientation, text</string>
+              <string>Environmental data</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QCheckBox" name="checkBox_10">
+            <widget class="QCheckBox" name="athelete_checkbox">
              <property name="text">
               <string>Athlete data</string>
              </property>
@@ -91,9 +135,9 @@
          <item row="1" column="0">
           <layout class="QVBoxLayout" name="verticalLayout_2">
            <item>
-            <widget class="QCheckBox" name="checkBox">
+            <widget class="QCheckBox" name="debug_checkbox">
              <property name="toolTip">
-              <string>Show internal counters for queue length, </string>
+              <string/>
              </property>
              <property name="text">
               <string>Debug</string>
@@ -101,9 +145,9 @@
             </widget>
            </item>
            <item>
-            <widget class="QCheckBox" name="checkBox_2">
+            <widget class="QCheckBox" name="data_read_checkbox">
              <property name="toolTip">
-              <string>If uploading to some external service, display that and any additional available information.</string>
+              <string/>
              </property>
              <property name="text">
               <string>Data read/send status</string>
@@ -111,7 +155,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QCheckBox" name="checkBox_3">
+            <widget class="QCheckBox" name="competition_checkbox">
              <property name="toolTip">
               <string>Show minimalist map overlaying GPS data.</string>
              </property>
@@ -121,16 +165,16 @@
             </widget>
            </item>
            <item>
-            <widget class="QCheckBox" name="checkBox_7">
+            <widget class="QCheckBox" name="orientation_display_checkbox">
              <property name="text">
               <string>Orientation, display</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QCheckBox" name="checkBox_9">
+            <widget class="QCheckBox" name="orientation_text_checkbox">
              <property name="text">
-              <string>Environmental data</string>
+              <string>Orientation, text</string>
              </property>
             </widget>
            </item>
@@ -148,35 +192,35 @@
           </widget>
          </item>
          <item>
-          <widget class="QRadioButton" name="radioButton_3">
+          <widget class="QRadioButton" name="gps_point_radio">
            <property name="text">
             <string>GPS, single point</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QRadioButton" name="radioButton_4">
+          <widget class="QRadioButton" name="relative_point_radio">
            <property name="text">
             <string>Relative, single point</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QRadioButton" name="radioButton_5">
+          <widget class="QRadioButton" name="gps_lines_radio">
            <property name="text">
             <string>GPS, lines</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QRadioButton" name="radioButton_6">
+          <widget class="QRadioButton" name="relative_lines_radio">
            <property name="text">
             <string>Relative, lines</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QRadioButton" name="radioButton_7">
+          <widget class="QRadioButton" name="cycle_all_radio">
            <property name="text">
             <string>Cycle all</string>
            </property>
@@ -196,6 +240,9 @@
            </property>
           </widget>
          </item>
+         <item row="5" column="1">
+          <widget class="QLineEdit" name="keyable_hex_value"/>
+         </item>
          <item row="0" column="0" colspan="2">
           <widget class="QLabel" name="label_2">
            <property name="text">
@@ -207,17 +254,17 @@
           </widget>
          </item>
          <item row="1" column="0" colspan="2">
-          <widget class="QLineEdit" name="lineEdit"/>
+          <widget class="QLineEdit" name="fade_duration_value"/>
          </item>
          <item row="4" column="0">
-          <widget class="QRadioButton" name="radioButton">
+          <widget class="QRadioButton" name="browser_radio">
            <property name="text">
             <string>Internal browser</string>
            </property>
           </widget>
          </item>
          <item row="5" column="0">
-          <widget class="QRadioButton" name="radioButton_2">
+          <widget class="QRadioButton" name="keyable_radio">
            <property name="text">
             <string>Keyable background</string>
            </property>
@@ -233,13 +280,10 @@
            </property>
           </widget>
          </item>
-         <item row="5" column="1">
-          <widget class="QLineEdit" name="lineEdit_2"/>
-         </item>
         </layout>
        </item>
        <item>
-        <widget class="QPushButton" name="pushButton">
+        <widget class="QPushButton" name="start_updating_button">
          <property name="text">
           <string>Start updating elements</string>
          </property>
@@ -262,6 +306,13 @@
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>AnimationLabel</class>
+   <extends>QLabel</extends>
+   <header>anim</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>
