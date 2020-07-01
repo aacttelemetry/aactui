@@ -27,7 +27,7 @@
        <bool>false</bool>
       </property>
       <property name="styleSheet">
-       <string notr="true">background:black</string>
+       <string notr="true">background:white</string>
       </property>
       <widget class="AnimationLabel" name="test_anim_label">
        <property name="geometry">
@@ -45,7 +45,7 @@
         </font>
        </property>
        <property name="styleSheet">
-        <string notr="true">color:white</string>
+        <string notr="true"/>
        </property>
        <property name="text">
         <string>Task 1</string>

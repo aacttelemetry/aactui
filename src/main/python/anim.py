@@ -4,6 +4,12 @@ from PyQt5.QtCore import pyqtSlot, QEasingCurve, QEventLoop, QTimer
 from PyQt5.QtWidgets import QLabel
 from PyQt5.QtGui import QColor, QPalette
 
+'''Fadable QLabel, as per https://stackoverflow.com/questions/48191399/pyqt-fading-a-qlabel.
+Does not work if stylesheeted.
+
+Consider looking into using QPalette or figuring out some other way to set the color of an individual AnimationLabel.
+'''
+
 class AnimationLabel(QLabel):
     def __init__(self, *args, **kwargs):
         QLabel.__init__(self, *args, **kwargs)

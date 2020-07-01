@@ -545,11 +545,15 @@ class ApplicationWindow(QtWidgets.QMainWindow,Ui_MainWindow):
 
 #region other dialogues
 #
-class StreamWindow(QtWidgets.QMainWindow,Ui_MainWindow2):
+class StreamWindow(QtWidgets.QMainWindow,Ui_OverlayWindow):
+    #the icon doesn't show up on pixmap for some reason, try setting it from __init__?
     def __init__(self):
         super().__init__()
         self.ui = Ui_OverlayWindow()
         self.ui.setupUi(self)
+        self.ui.start_updating_button.clicked.connect(self.start_anim)
+    def start_anim(self):
+        self.ui.test_anim_label.startAnimation()
 
 class Test_Dialog(QtWidgets.QDialog):
     def __init__(self):
