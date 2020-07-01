@@ -1,1 +1,3 @@
-pyuic5 new2020.ui -o new2020.py
+@echo off
+set /p name="Enter filename (excluding '.ui'): "
+pyuic5 %name%.ui -o %name%.py

@@ -29,6 +29,7 @@ from matplotlib.figure import Figure
 from new2020 import Ui_MainWindow
 from testwindow import Ui_MainWindow2
 from testdialog import Ui_Dialog
+from streamoverlay import Ui_OverlayWindow
 #endregion
 
 #region variables
@@ -547,7 +548,7 @@ class ApplicationWindow(QtWidgets.QMainWindow,Ui_MainWindow):
 class StreamWindow(QtWidgets.QMainWindow,Ui_MainWindow2):
     def __init__(self):
         super().__init__()
-        self.ui = Ui_MainWindow2()
+        self.ui = Ui_OverlayWindow()
         self.ui.setupUi(self)
 
 class Test_Dialog(QtWidgets.QDialog):
