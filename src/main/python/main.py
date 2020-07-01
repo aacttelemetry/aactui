@@ -304,7 +304,7 @@ class QTextEditLogger(logging.Handler): #logging as per https://stackoverflow.co
         msg = self.format(record)
         self.widget.appendPlainText(msg)
 
-class 
+#class animation..
 
 class data_plot_class(FigureCanvas):
     """Ultimately, this is a QWidget (as well as a FigureCanvasAgg, etc.)."""
