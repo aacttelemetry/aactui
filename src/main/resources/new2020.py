@@ -956,6 +956,7 @@ class Ui_MainWindow(object):
         self.groupBox_7.setTitle(_translate("MainWindow", "Timestamp Conversion"))
         self.label_118.setText(_translate("MainWindow", "UNIX timestamp:"))
         self.label_119.setText(_translate("MainWindow", "Human-readable:"))
+        self.dateTimeEdit.setDisplayFormat(_translate("MainWindow", "M/d/yyyy h:mm:ss AP"))
         self.find_row_button.setText(_translate("MainWindow", "Find Equivalent Row"))
         self.label_120.setText(_translate("MainWindow", "If reading data from a database file or Google Sheets, you can use this button to try and find the relevant row."))
         self.label_121.setText(_translate("MainWindow", "Row"))

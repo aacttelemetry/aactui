@@ -1,6 +1,8 @@
 <RCC>
   <qresource prefix="images">
+    <file>Slide2.PNG</file>
     <file>flag.png</file>
+    <file>background.png</file>
     <file>flag-test.png</file>
   </qresource>
 </RCC>

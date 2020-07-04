@@ -444,7 +444,8 @@ class ApplicationWindow(QtWidgets.QMainWindow,Ui_MainWindow):
         #self.pushButton.clicked.connect(lambda: self.add_msg("a"))
 
         self.pushButton_11.clicked.connect(self.open_stream_window)        
-        self.find_row_button.clicked.connect(self.open_dialog_window)
+        #self.find_row_button.clicked.connect(self.open_dialog_window)
+        self.find_row_button.clicked.connect(self.find_equivalent_row)
     def open_dialog_window(self):
         self.new_dialog = Test_Dialog()
         self.new_dialog.show()
@@ -513,7 +514,7 @@ class ApplicationWindow(QtWidgets.QMainWindow,Ui_MainWindow):
             del global_states.queue[0]
         else:
             pass
-            #global_states.main_timer.stop()
+            #global_states.main_timer.stop()f
     #hmmm
     def open_herc_book(self):
         webbrowser.open("https://www.nasa.gov/sites/default/files/atoms/files/edu_herc-guidebook_2020v2.pdf")
@@ -529,7 +530,9 @@ class ApplicationWindow(QtWidgets.QMainWindow,Ui_MainWindow):
         pass
         #webbrowser.open("")
     def find_equivalent_row(self):
-        pass
+        print(self.dateTimeEdit.dateTime().toPyDateTime())
+        print(self.dateTimeEdit.dateTime().toPyDateTime().timestamp())
+        print(time.time())
     def open_stream_overlay(self):
         pass
     def open_db_file_dialog(self):

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>996</width>
-    <height>875</height>
+    <width>1180</width>
+    <height>951</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,15 +17,356 @@
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
      <widget class="QTabWidget" name="tabWidget">
+      <property name="minimumSize">
+       <size>
+        <width>1158</width>
+        <height>676</height>
+       </size>
+      </property>
+      <property name="currentIndex">
+       <number>0</number>
+      </property>
       <widget class="QWidget" name="tab">
+       <property name="minimumSize">
+        <size>
+         <width>1152</width>
+         <height>648</height>
+        </size>
+       </property>
        <attribute name="title">
-        <string>Tab 1</string>
+        <string>Overlay 1</string>
        </attribute>
-       <widget class="AnimationLabel" name="test_anim_label">
+       <widget class="AnimationLabel" name="obstacle_remaining_label">
         <property name="geometry">
          <rect>
-          <x>480</x>
-          <y>269</y>
+          <x>41</x>
+          <y>271</y>
+          <width>161</width>
+          <height>51</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Exo 2</family>
+          <pointsize>12</pointsize>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">color:white</string>
+        </property>
+        <property name="text">
+         <string>BSTACLE 6</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="test_background">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>0</y>
+          <width>1152</width>
+          <height>648</height>
+         </rect>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>1152</width>
+          <height>648</height>
+         </size>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="pixmap">
+         <pixmap resource="res.qrc">:/images/background.png</pixmap>
+        </property>
+        <property name="scaledContents">
+         <bool>true</bool>
+        </property>
+       </widget>
+       <widget class="AnimationLabel" name="obstacle_capital_label">
+        <property name="geometry">
+         <rect>
+          <x>21</x>
+          <y>270</y>
+          <width>21</width>
+          <height>51</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Exo 2</family>
+          <pointsize>14</pointsize>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">color:white</string>
+        </property>
+        <property name="text">
+         <string>O</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+        </property>
+       </widget>
+       <widget class="AnimationLabel" name="obstacle_name_label">
+        <property name="geometry">
+         <rect>
+          <x>28</x>
+          <y>295</y>
+          <width>161</width>
+          <height>51</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Exo 2</family>
+          <pointsize>9</pointsize>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">color:white</string>
+        </property>
+        <property name="text">
+         <string>OBSTACLE NAME</string>
+        </property>
+       </widget>
+       <widget class="AnimationLabel" name="max_obstacle_points_label">
+        <property name="geometry">
+         <rect>
+          <x>28</x>
+          <y>315</y>
+          <width>131</width>
+          <height>50</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Exo 2</family>
+          <pointsize>9</pointsize>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">color:white</string>
+        </property>
+        <property name="text">
+         <string>12 POINTS MAX</string>
+        </property>
+       </widget>
+       <widget class="AnimationLabel" name="static_points_label">
+        <property name="geometry">
+         <rect>
+          <x>176</x>
+          <y>316</y>
+          <width>290</width>
+          <height>50</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Exo 2</family>
+          <pointsize>8</pointsize>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">color:white</string>
+        </property>
+        <property name="text">
+         <string>POINTS (EST.)</string>
+        </property>
+       </widget>
+       <widget class="AnimationLabel" name="static_time_label">
+        <property name="geometry">
+         <rect>
+          <x>82</x>
+          <y>345</y>
+          <width>131</width>
+          <height>50</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Exo 2</family>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">color:white</string>
+        </property>
+        <property name="text">
+         <string>TIME ELAPSED:</string>
+        </property>
+       </widget>
+       <widget class="AnimationLabel" name="time_elapsed_label">
+        <property name="geometry">
+         <rect>
+          <x>71</x>
+          <y>368</y>
+          <width>141</width>
+          <height>51</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Exo 2</family>
+          <pointsize>14</pointsize>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">color:white</string>
+        </property>
+        <property name="text">
+         <string>0:00 (0:00)</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+       <widget class="AnimationLabel" name="efficiency_label">
+        <property name="geometry">
+         <rect>
+          <x>71</x>
+          <y>418</y>
+          <width>141</width>
+          <height>51</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Exo 2</family>
+          <pointsize>14</pointsize>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">color:white</string>
+        </property>
+        <property name="text">
+         <string>0.4 pps</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+       <widget class="AnimationLabel" name="static_efficiency_label">
+        <property name="geometry">
+         <rect>
+          <x>95</x>
+          <y>396</y>
+          <width>131</width>
+          <height>50</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Exo 2</family>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">color:white</string>
+        </property>
+        <property name="text">
+         <string>EFFICIENCY:</string>
+        </property>
+       </widget>
+       <widget class="AnimationLabel" name="static_next_label">
+        <property name="geometry">
+         <rect>
+          <x>122</x>
+          <y>461</y>
+          <width>51</width>
+          <height>50</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Exo 2</family>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">color:white</string>
+        </property>
+        <property name="text">
+         <string>NEXT:</string>
+        </property>
+       </widget>
+       <widget class="AnimationLabel" name="next_obstacle_label">
+        <property name="geometry">
+         <rect>
+          <x>21</x>
+          <y>484</y>
+          <width>241</width>
+          <height>50</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Exo 2</family>
+          <pointsize>9</pointsize>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">color:white</string>
+        </property>
+        <property name="text">
+         <string>OBSTACLE # - OBSTACLE NAME</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+       <widget class="AnimationLabel" name="variable_capital_label">
+        <property name="geometry">
+         <rect>
+          <x>622</x>
+          <y>520</y>
+          <width>21</width>
+          <height>51</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Exo 2</family>
+          <pointsize>14</pointsize>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">color:white</string>
+        </property>
+        <property name="text">
+         <string>E</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+        </property>
+       </widget>
+       <widget class="AnimationLabel" name="variable_remaining_label">
+        <property name="geometry">
+         <rect>
+          <x>643</x>
+          <y>521</y>
+          <width>231</width>
+          <height>51</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Exo 2</family>
+          <pointsize>12</pointsize>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">color:white</string>
+        </property>
+        <property name="text">
+         <string>NVIRONMENTAL DATA</string>
+        </property>
+       </widget>
+       <widget class="AnimationLabel" name="current_speed_label">
+        <property name="geometry">
+         <rect>
+          <x>920</x>
+          <y>470</y>
           <width>91</width>
           <height>51</height>
          </rect>
@@ -33,42 +374,669 @@
         <property name="font">
          <font>
           <family>Exo 2</family>
-          <pointsize>20</pointsize>
+          <pointsize>12</pointsize>
          </font>
         </property>
         <property name="styleSheet">
-         <string notr="true"/>
+         <string notr="true">color:white</string>
         </property>
         <property name="text">
-         <string>Task 1</string>
+         <string>14 m/s</string>
         </property>
        </widget>
-       <widget class="QLabel" name="test_icon">
+       <widget class="AnimationLabel" name="current_heartrate_label">
         <property name="geometry">
          <rect>
-          <x>150</x>
-          <y>80</y>
-          <width>251</width>
-          <height>261</height>
+          <x>1058</x>
+          <y>469</y>
+          <width>91</width>
+          <height>51</height>
          </rect>
         </property>
-        <property name="minimumSize">
-         <size>
-          <width>50</width>
-          <height>50</height>
-         </size>
+        <property name="font">
+         <font>
+          <family>Exo 2</family>
+          <pointsize>12</pointsize>
+         </font>
         </property>
-        <property name="pixmap">
-         <pixmap resource="res.qrc">:/images/flag.png</pixmap>
+        <property name="styleSheet">
+         <string notr="true">color:white</string>
         </property>
-        <property name="scaledContents">
-         <bool>true</bool>
+        <property name="text">
+         <string>134 bpm</string>
         </property>
        </widget>
+       <widget class="AnimationLabel" name="debug_label">
+        <property name="geometry">
+         <rect>
+          <x>820</x>
+          <y>10</y>
+          <width>321</width>
+          <height>161</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Exo 2</family>
+          <pointsize>12</pointsize>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">color:white</string>
+        </property>
+        <property name="text">
+         <string>debug</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+        </property>
+       </widget>
+       <widget class="AnimationLabel" name="gps_label">
+        <property name="geometry">
+         <rect>
+          <x>24</x>
+          <y>157</y>
+          <width>321</width>
+          <height>51</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Exo 2</family>
+          <pointsize>12</pointsize>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">color:white</string>
+        </property>
+        <property name="text">
+         <string>GPS: 15.123456, -15.123456</string>
+        </property>
+       </widget>
+       <widget class="AnimationLabel" name="static_disp_label">
+        <property name="geometry">
+         <rect>
+          <x>23</x>
+          <y>202</y>
+          <width>231</width>
+          <height>51</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Exo 2</family>
+          <pointsize>12</pointsize>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">color:white</string>
+        </property>
+        <property name="text">
+         <string>DISP:</string>
+        </property>
+       </widget>
+       <widget class="AnimationLabel" name="relative_position_label">
+        <property name="geometry">
+         <rect>
+          <x>69</x>
+          <y>190</y>
+          <width>321</width>
+          <height>51</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Exo 2</family>
+          <pointsize>12</pointsize>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">color:white</string>
+        </property>
+        <property name="text">
+         <string>16.123456, -16.123456</string>
+        </property>
+       </widget>
+       <widget class="AnimationLabel" name="relative_error_label">
+        <property name="geometry">
+         <rect>
+          <x>68</x>
+          <y>212</y>
+          <width>321</width>
+          <height>51</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Exo 2</family>
+          <pointsize>12</pointsize>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">color:white</string>
+        </property>
+        <property name="text">
+         <string>+124.5 ft, -124.5 ft</string>
+        </property>
+       </widget>
+       <widget class="AnimationLabel" name="max_points_label">
+        <property name="geometry">
+         <rect>
+          <x>212</x>
+          <y>290</y>
+          <width>231</width>
+          <height>51</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Exo 2</family>
+          <pointsize>12</pointsize>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">color:white</string>
+        </property>
+        <property name="text">
+         <string>120</string>
+        </property>
+       </widget>
+       <widget class="AnimationLabel" name="current_points_label">
+        <property name="geometry">
+         <rect>
+          <x>113</x>
+          <y>271</y>
+          <width>91</width>
+          <height>51</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Exo 2</family>
+          <pointsize>12</pointsize>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">color:white</string>
+        </property>
+        <property name="text">
+         <string>5</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+        </property>
+       </widget>
+       <zorder>test_background</zorder>
+       <zorder>obstacle_remaining_label</zorder>
+       <zorder>obstacle_capital_label</zorder>
+       <zorder>obstacle_name_label</zorder>
+       <zorder>max_obstacle_points_label</zorder>
+       <zorder>static_points_label</zorder>
+       <zorder>static_time_label</zorder>
+       <zorder>time_elapsed_label</zorder>
+       <zorder>efficiency_label</zorder>
+       <zorder>static_efficiency_label</zorder>
+       <zorder>static_next_label</zorder>
+       <zorder>next_obstacle_label</zorder>
+       <zorder>variable_capital_label</zorder>
+       <zorder>variable_remaining_label</zorder>
+       <zorder>current_speed_label</zorder>
+       <zorder>current_heartrate_label</zorder>
+       <zorder>debug_label</zorder>
+       <zorder>gps_label</zorder>
+       <zorder>static_disp_label</zorder>
+       <zorder>relative_position_label</zorder>
+       <zorder>relative_error_label</zorder>
+       <zorder>max_points_label</zorder>
+       <zorder>current_points_label</zorder>
       </widget>
       <widget class="QWidget" name="tab_2">
        <attribute name="title">
-        <string>Tab 2</string>
+        <string>Overlay 2</string>
+       </attribute>
+       <widget class="AnimationLabel" name="relative_error_label_2">
+        <property name="geometry">
+         <rect>
+          <x>55</x>
+          <y>211</y>
+          <width>321</width>
+          <height>51</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Exo 2</family>
+          <pointsize>12</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>+124.5 ft, -124.5 ft</string>
+        </property>
+       </widget>
+       <widget class="AnimationLabel" name="static_disp_label_2">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>201</y>
+          <width>231</width>
+          <height>51</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Exo 2</family>
+          <pointsize>12</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>DISP:</string>
+        </property>
+       </widget>
+       <widget class="AnimationLabel" name="debug_label_2">
+        <property name="geometry">
+         <rect>
+          <x>807</x>
+          <y>9</y>
+          <width>321</width>
+          <height>161</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Exo 2</family>
+          <pointsize>12</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>debug</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+        </property>
+       </widget>
+       <widget class="AnimationLabel" name="max_obstacle_points_label_2">
+        <property name="geometry">
+         <rect>
+          <x>15</x>
+          <y>314</y>
+          <width>131</width>
+          <height>50</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Exo 2</family>
+          <pointsize>9</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>12 POINTS MAX</string>
+        </property>
+       </widget>
+       <widget class="AnimationLabel" name="variable_capital_label_2">
+        <property name="geometry">
+         <rect>
+          <x>609</x>
+          <y>519</y>
+          <width>21</width>
+          <height>51</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Exo 2</family>
+          <pointsize>14</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>E</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+        </property>
+       </widget>
+       <widget class="AnimationLabel" name="max_points_label_2">
+        <property name="geometry">
+         <rect>
+          <x>199</x>
+          <y>289</y>
+          <width>231</width>
+          <height>51</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Exo 2</family>
+          <pointsize>12</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>120</string>
+        </property>
+       </widget>
+       <widget class="AnimationLabel" name="current_heartrate_label_2">
+        <property name="geometry">
+         <rect>
+          <x>1045</x>
+          <y>468</y>
+          <width>91</width>
+          <height>51</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Exo 2</family>
+          <pointsize>12</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>134 bpm</string>
+        </property>
+       </widget>
+       <widget class="AnimationLabel" name="obstacle_capital_label_2">
+        <property name="geometry">
+         <rect>
+          <x>8</x>
+          <y>269</y>
+          <width>21</width>
+          <height>51</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Exo 2</family>
+          <pointsize>14</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>O</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+        </property>
+       </widget>
+       <widget class="AnimationLabel" name="obstacle_name_label_2">
+        <property name="geometry">
+         <rect>
+          <x>15</x>
+          <y>294</y>
+          <width>161</width>
+          <height>51</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Exo 2</family>
+          <pointsize>9</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>OBSTACLE NAME</string>
+        </property>
+       </widget>
+       <widget class="AnimationLabel" name="efficiency_label_2">
+        <property name="geometry">
+         <rect>
+          <x>58</x>
+          <y>417</y>
+          <width>141</width>
+          <height>51</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Exo 2</family>
+          <pointsize>14</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>0.4 pps</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+       <widget class="AnimationLabel" name="static_points_label_2">
+        <property name="geometry">
+         <rect>
+          <x>163</x>
+          <y>315</y>
+          <width>290</width>
+          <height>50</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Exo 2</family>
+          <pointsize>8</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>POINTS (EST.)</string>
+        </property>
+       </widget>
+       <widget class="AnimationLabel" name="static_time_label_2">
+        <property name="geometry">
+         <rect>
+          <x>69</x>
+          <y>344</y>
+          <width>131</width>
+          <height>50</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Exo 2</family>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>TIME ELAPSED:</string>
+        </property>
+       </widget>
+       <widget class="AnimationLabel" name="next_obstacle_label_2">
+        <property name="geometry">
+         <rect>
+          <x>8</x>
+          <y>483</y>
+          <width>241</width>
+          <height>50</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Exo 2</family>
+          <pointsize>9</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>OBSTACLE # - OBSTACLE NAME</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+       <widget class="AnimationLabel" name="static_efficiency_label_2">
+        <property name="geometry">
+         <rect>
+          <x>82</x>
+          <y>395</y>
+          <width>131</width>
+          <height>50</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Exo 2</family>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>EFFICIENCY:</string>
+        </property>
+       </widget>
+       <widget class="AnimationLabel" name="obstacle_remaining_label_2">
+        <property name="geometry">
+         <rect>
+          <x>28</x>
+          <y>270</y>
+          <width>161</width>
+          <height>51</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Exo 2</family>
+          <pointsize>12</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>BSTACLE 6</string>
+        </property>
+       </widget>
+       <widget class="AnimationLabel" name="gps_label_2">
+        <property name="geometry">
+         <rect>
+          <x>11</x>
+          <y>156</y>
+          <width>321</width>
+          <height>51</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Exo 2</family>
+          <pointsize>12</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>GPS: 15.123456, -15.123456</string>
+        </property>
+       </widget>
+       <widget class="AnimationLabel" name="current_points_label_2">
+        <property name="geometry">
+         <rect>
+          <x>100</x>
+          <y>270</y>
+          <width>91</width>
+          <height>51</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Exo 2</family>
+          <pointsize>12</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>5</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+        </property>
+       </widget>
+       <widget class="AnimationLabel" name="time_elapsed_label_2">
+        <property name="geometry">
+         <rect>
+          <x>58</x>
+          <y>367</y>
+          <width>141</width>
+          <height>51</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Exo 2</family>
+          <pointsize>14</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>0:00 (0:00)</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+       <widget class="AnimationLabel" name="current_speed_label_2">
+        <property name="geometry">
+         <rect>
+          <x>907</x>
+          <y>469</y>
+          <width>91</width>
+          <height>51</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Exo 2</family>
+          <pointsize>12</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>14 m/s</string>
+        </property>
+       </widget>
+       <widget class="AnimationLabel" name="static_next_label_2">
+        <property name="geometry">
+         <rect>
+          <x>109</x>
+          <y>460</y>
+          <width>51</width>
+          <height>50</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Exo 2</family>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>NEXT:</string>
+        </property>
+       </widget>
+       <widget class="AnimationLabel" name="relative_position_label_2">
+        <property name="geometry">
+         <rect>
+          <x>56</x>
+          <y>189</y>
+          <width>321</width>
+          <height>51</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Exo 2</family>
+          <pointsize>12</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>16.123456, -16.123456</string>
+        </property>
+       </widget>
+       <widget class="AnimationLabel" name="variable_remaining_label_2">
+        <property name="geometry">
+         <rect>
+          <x>630</x>
+          <y>520</y>
+          <width>231</width>
+          <height>51</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Exo 2</family>
+          <pointsize>12</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>NVIRONMENTAL DATA</string>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QWidget" name="tab_3">
+       <attribute name="title">
+        <string>Large Map</string>
        </attribute>
       </widget>
      </widget>
@@ -228,6 +1196,19 @@
        </item>
        <item>
         <layout class="QGridLayout" name="gridLayout_2">
+         <item row="4" column="1">
+          <widget class="QLabel" name="label_4">
+           <property name="text">
+            <string>Color for keyable (hex):</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item row="5" column="1">
+          <widget class="QLineEdit" name="keyable_hex_value"/>
+         </item>
          <item row="3" column="0" colspan="2">
           <widget class="QLabel" name="label_3">
            <property name="text">
@@ -238,8 +1219,15 @@
            </property>
           </widget>
          </item>
-         <item row="5" column="1">
-          <widget class="QLineEdit" name="keyable_hex_value"/>
+         <item row="4" column="0">
+          <widget class="QRadioButton" name="browser_radio">
+           <property name="text">
+            <string>Internal browser</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0" colspan="2">
+          <widget class="QLineEdit" name="fade_duration_value"/>
          </item>
          <item row="0" column="0" colspan="2">
           <widget class="QLabel" name="label_2">
@@ -251,16 +1239,6 @@
            </property>
           </widget>
          </item>
-         <item row="1" column="0" colspan="2">
-          <widget class="QLineEdit" name="fade_duration_value"/>
-         </item>
-         <item row="4" column="0">
-          <widget class="QRadioButton" name="browser_radio">
-           <property name="text">
-            <string>Internal browser</string>
-           </property>
-          </widget>
-         </item>
          <item row="5" column="0">
           <widget class="QRadioButton" name="keyable_radio">
            <property name="text">
@@ -268,24 +1246,28 @@
            </property>
           </widget>
          </item>
-         <item row="4" column="1">
-          <widget class="QLabel" name="label_4">
+        </layout>
+       </item>
+       <item>
+        <layout class="QVBoxLayout" name="verticalLayout_5">
+         <item>
+          <widget class="QPushButton" name="start_updating_button">
            <property name="text">
-            <string>Color for keyable (hex):</string>
+            <string>Start updating elements</string>
            </property>
-           <property name="alignment">
-            <set>Qt::AlignCenter</set>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pushButton">
+           <property name="toolTip">
+            <string>Click for help on setting up the stream, including keys and information.</string>
+           </property>
+           <property name="text">
+            <string>I need help</string>
            </property>
           </widget>
          </item>
         </layout>
-       </item>
-       <item>
-        <widget class="QPushButton" name="start_updating_button">
-         <property name="text">
-          <string>Start updating elements</string>
-         </property>
-        </widget>
        </item>
       </layout>
      </widget>
@@ -297,7 +1279,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>996</width>
+     <width>1180</width>
      <height>26</height>
     </rect>
    </property>
