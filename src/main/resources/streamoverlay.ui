@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1180</width>
-    <height>951</height>
+    <height>1000</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -1048,103 +1048,54 @@
       </property>
       <layout class="QHBoxLayout" name="horizontalLayout">
        <item>
-        <layout class="QGridLayout" name="gridLayout">
-         <item row="0" column="0" colspan="2">
+        <layout class="QVBoxLayout" name="verticalLayout_3">
+         <item>
           <widget class="QLabel" name="label">
            <property name="text">
-            <string>Show:</string>
+            <string>Cycle bottom-right:</string>
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>
            </property>
           </widget>
          </item>
-         <item row="1" column="1">
-          <layout class="QVBoxLayout" name="verticalLayout_3">
-           <item>
-            <widget class="QCheckBox" name="cumulative_position_checkbox">
-             <property name="text">
-              <string>Cumulative positioning data</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QCheckBox" name="gps_checkbox">
-             <property name="text">
-              <string>Additional GPS data</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QCheckBox" name="displacement_checkbox">
-             <property name="text">
-              <string>Displacement</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QCheckBox" name="environmental_checkbox">
-             <property name="text">
-              <string>Environmental data</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QCheckBox" name="athelete_checkbox">
-             <property name="text">
-              <string>Athlete data</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
+         <item>
+          <widget class="QCheckBox" name="environmental_checkbox">
+           <property name="text">
+            <string>Environmental data</string>
+           </property>
+          </widget>
          </item>
-         <item row="1" column="0">
-          <layout class="QVBoxLayout" name="verticalLayout_2">
-           <item>
-            <widget class="QCheckBox" name="debug_checkbox">
-             <property name="toolTip">
-              <string/>
-             </property>
-             <property name="text">
-              <string>Debug</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QCheckBox" name="data_read_checkbox">
-             <property name="toolTip">
-              <string/>
-             </property>
-             <property name="text">
-              <string>Data read/send status</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QCheckBox" name="competition_checkbox">
-             <property name="toolTip">
-              <string>Show minimalist map overlaying GPS data.</string>
-             </property>
-             <property name="text">
-              <string>Competition data</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QCheckBox" name="orientation_display_checkbox">
-             <property name="text">
-              <string>Orientation, display</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QCheckBox" name="orientation_text_checkbox">
-             <property name="text">
-              <string>Orientation, text</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
+         <item>
+          <widget class="QCheckBox" name="athelete_checkbox">
+           <property name="text">
+            <string>Athlete data</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QCheckBox" name="data_read_checkbox">
+           <property name="toolTip">
+            <string/>
+           </property>
+           <property name="text">
+            <string>Data read/send status</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QCheckBox" name="cumulative_position_checkbox">
+           <property name="text">
+            <string>Cumulative positioning data</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QCheckBox" name="gps_checkbox">
+           <property name="text">
+            <string>Additional GPS data</string>
+           </property>
+          </widget>
          </item>
         </layout>
        </item>
@@ -1153,7 +1104,10 @@
          <item>
           <widget class="QLabel" name="label_5">
            <property name="text">
-            <string>Displacement:</string>
+            <string>Map display:</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
            </property>
           </widget>
          </item>
@@ -1195,54 +1149,59 @@
         </layout>
        </item>
        <item>
-        <layout class="QGridLayout" name="gridLayout_2">
-         <item row="4" column="1">
-          <widget class="QLabel" name="label_4">
+        <layout class="QGridLayout" name="gridLayout_3">
+         <item row="5" column="0" colspan="3">
+          <widget class="QPushButton" name="pushButton_7">
            <property name="text">
-            <string>Color for keyable (hex):</string>
+            <string>Subtract full value of last obstacle (x pts)</string>
+           </property>
+          </widget>
+         </item>
+         <item row="4" column="0" colspan="3">
+          <widget class="QCheckBox" name="checkBox">
+           <property name="text">
+            <string>Auto-add full value of completed obstacles</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0" colspan="3">
+          <widget class="QLabel" name="label_6">
+           <property name="text">
+            <string>Score control:</string>
            </property>
            <property name="alignment">
-            <set>Qt::AlignCenter</set>
+            <set>Qt::AlignHCenter|Qt::AlignTop</set>
            </property>
           </widget>
          </item>
-         <item row="5" column="1">
-          <widget class="QLineEdit" name="keyable_hex_value"/>
-         </item>
-         <item row="3" column="0" colspan="2">
-          <widget class="QLabel" name="label_3">
+         <item row="3" column="0">
+          <widget class="QPushButton" name="pushButton_4">
            <property name="text">
-            <string>Use:</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignCenter</set>
+            <string>Add</string>
            </property>
           </widget>
          </item>
-         <item row="4" column="0">
-          <widget class="QRadioButton" name="browser_radio">
+         <item row="3" column="1">
+          <widget class="QPushButton" name="pushButton_5">
            <property name="text">
-            <string>Internal browser</string>
+            <string>Subtract</string>
            </property>
           </widget>
          </item>
-         <item row="1" column="0" colspan="2">
-          <widget class="QLineEdit" name="fade_duration_value"/>
+         <item row="2" column="0" colspan="3">
+          <widget class="QLineEdit" name="lineEdit"/>
          </item>
-         <item row="0" column="0" colspan="2">
-          <widget class="QLabel" name="label_2">
+         <item row="3" column="2">
+          <widget class="QPushButton" name="pushButton_6">
            <property name="text">
-            <string>Fade duration (ms):</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignCenter</set>
+            <string>Set</string>
            </property>
           </widget>
          </item>
-         <item row="5" column="0">
-          <widget class="QRadioButton" name="keyable_radio">
+         <item row="6" column="0" colspan="3">
+          <widget class="QPushButton" name="pushButton_8">
            <property name="text">
-            <string>Keyable background</string>
+            <string>Add full value of last obstacle (x pts)</string>
            </property>
           </widget>
          </item>
@@ -1264,6 +1223,20 @@
            </property>
            <property name="text">
             <string>I need help</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pushButton_2">
+           <property name="text">
+            <string>Toggle debug</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pushButton_3">
+           <property name="text">
+            <string>Show/edit obstacle table</string>
            </property>
           </widget>
          </item>
