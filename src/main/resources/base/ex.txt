@@ -21,4 +21,8 @@ pyrcc5 res.qrc -o res_rc.py
 Using fbs's resource folder (correctly):
 https://github.com/mherrmann/fbs-tutorial#a-more-interesting-example
 
+Using Qt3D:
+https://doc.qt.io/qt-5/qt3d-basicshapes-cpp-example.html
+
+
 
