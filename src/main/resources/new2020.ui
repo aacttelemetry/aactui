@@ -73,7 +73,7 @@
     <item>
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>4</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="tab_4">
        <attribute name="title">
@@ -1703,7 +1703,7 @@
      <string>Debug</string>
     </property>
     <addaction name="actionPush_log_to_file"/>
-    <addaction name="actionStart_generating_random_data"/>
+    <addaction name="actionGenerate_random_data"/>
    </widget>
    <addaction name="menuSettings"/>
    <addaction name="menuLinks"/>
@@ -1755,9 +1755,9 @@
     <string>Push log to file</string>
    </property>
   </action>
-  <action name="actionStart_generating_random_data">
+  <action name="actionGenerate_random_data">
    <property name="text">
-    <string>Start generating random data</string>
+    <string>Toggle random data generation</string>
    </property>
   </action>
  </widget>
