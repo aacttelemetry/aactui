@@ -1698,8 +1698,16 @@
     <addaction name="separator"/>
     <addaction name="actionAbout"/>
    </widget>
+   <widget class="QMenu" name="menuDebug">
+    <property name="title">
+     <string>Debug</string>
+    </property>
+    <addaction name="actionPush_log_to_file"/>
+    <addaction name="actionStart_generating_random_data"/>
+   </widget>
    <addaction name="menuSettings"/>
    <addaction name="menuLinks"/>
+   <addaction name="menuDebug"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="actionChange_Graph_Size">
@@ -1740,6 +1748,16 @@
   <action name="actionAbout">
    <property name="text">
     <string>About</string>
+   </property>
+  </action>
+  <action name="actionPush_log_to_file">
+   <property name="text">
+    <string>Push log to file</string>
+   </property>
+  </action>
+  <action name="actionStart_generating_random_data">
+   <property name="text">
+    <string>Start generating random data</string>
    </property>
   </action>
  </widget>
