@@ -18,6 +18,7 @@ import socket
 import webbrowser
 import ast
 import math
+import random
 import logging #logging.debug/info/warning/error("str")
 from datetime import datetime
 from PIL import Image
@@ -126,6 +127,42 @@ class global_constants:
 #endregion
 
 #region global data functions
+def generate_random_data():
+    #does not actually do the calculations for vector math, should be fixed later
+    #also does not cap values such as humidity at 0/100 or exhibit asymptotic behavior
+
+    #{"timestamp":<timestamp>,
+    # "fitbit_data":[<heartrate>,<pressure>],
+    # "sensor_data":[<humidity[0], temperature[1], pitch[2], roll[3], yaw[4], total x[5], total y[6], total vector count[7],this read vector count[8], internal length constant[9], latitude[10], longitude[11], hdop[12], satellite count[13]>]}
+    #
+    def rval(min, max, places=2): #generate a random number with n decimal places, 2 default
+        return random.randint(min*(10**places),max*(10**places))/(10**places)
+    #if global_states.halt:
+        #break
+    if not global_states.queue: #if first run: generate reasonable (random) starting values
+        init_fitbit = ["70","100000"]
+        init_sensor = ["50.00","15.00","0","0","0","0","0","0","0","0.18","0","0","0","3"]
+        full = {"timestamp":math.floor(time.time()),"fitbit_data":init_fitbit,"sensor_data":init_sensor}
+        global_states.queue.append(full)
+    else: #for successive runs: make slight changes (and do some magic inefficient conversions)
+        current = global_states.queue[0]
+        init_fitbit = [float(i) for i in current["fitbit_data"]]
+        init_sensor = [float(i) for i in current["sensor_data"]]
+        #warning: does not prevent values from going to very dumb places if unlucky
+        new_fitbit = [rval(-2,2,0), rval(-1000,1000,0)]
+        new_sensor = [rval(-5,5),rval(-1,1),rval(-30,30),rval(-30,30),rval(-30,30),rval(-30,30),rval(-30,30),rval(0,5,0),rval(0,5,0),0.18,rval(-0.5,0.5,6),rval(-0.5,0.5,6),0,0]
+
+        final_fitbit = []
+        final_sensor = []
+        for i in range(0,len(new_fitbit)):
+            final_fitbit.append(round(new_fitbit[i]+init_fitbit[i],2))
+        for i in range(0,len(new_sensor)):
+            final_sensor.append(round(new_sensor[i]+init_sensor[i],2))
+        final_fitbit = [str(i) for i in final_fitbit]
+        final_sensor = [str(i) for i in final_sensor]
+        full = {"timestamp":math.floor(time.time()),"fitbit_data":final_fitbit,"sensor_data":final_sensor}
+        global_states.queue.append(full)
+            
 def socket_connect(pi_ip='192.168.1.85', port=12348):
     try:
         global_states.socket_object = socket.socket()          
@@ -415,7 +452,7 @@ class ApplicationWindow(QtWidgets.QMainWindow,Ui_MainWindow):
 
         #event handlers
         #tab 1
-        self.connect_raspi_button.clicked.connect(self.start_reading)
+        self.connect_raspi_button.clicked.connect(self.start_reading_socket)
         
         #tab 2
 
@@ -438,6 +475,7 @@ class ApplicationWindow(QtWidgets.QMainWindow,Ui_MainWindow):
         self.actionWebsite.triggered.connect(self.open_website)
         self.actionReport.triggered.connect(self.open_report)
         self.actionAbout.triggered.connect(self.open_about_dialog)
+        self.actionGenerate_random_data.triggered.connect(self.start_reading_debug_random)
 
         global_states.main_timer.timeout.connect(self.update_data)
         #https://eli.thegreenplace.net/2011/04/25/passing-extra-arguments-to-pyqt-slot
@@ -452,14 +490,17 @@ class ApplicationWindow(QtWidgets.QMainWindow,Ui_MainWindow):
     def open_stream_window(self):
         self.about_dialog = StreamWindow()
         self.about_dialog.show()
-
-    def start_reading(self):
+    def start_reading_socket(self):
         socket_connect()
         global_states.main_timer.start(1000)
-        
+    def start_reading_debug_random(self):
+        global_states.data_source = "Debug"
+        global_states.main_timer.start(1000)
     def update_data(self):
         if global_states.data_source == "Socket" and global_states.socket_object != None:
             get_data_sockets()
+        elif global_states.data_source == "Debug":
+            generate_random_data()
         if len(global_states.queue) > 1:
         #... all text label updates go here     
         # {"timestamp":<timestamp>,
@@ -495,8 +536,10 @@ class ApplicationWindow(QtWidgets.QMainWindow,Ui_MainWindow):
             self.roll_label.setText(global_states.queue[0]["sensor_data"][3])
             self.yaw_label.setText(global_states.queue[0]["sensor_data"][4])
             if(global_states.queue[0]["sensor_data"][7] != "--"):
-                self.total_distance_label.setText(str(int(global_states.queue[0]["sensor_data"][7])*float(global_states.queue[0]["sensor_data"][9]))+"units")
-                self.this_read_distance_label.setText(str(int(global_states.queue[0]["sensor_data"][8])*float(global_states.queue[0]["sensor_data"][9]))+"units")
+                #these two were edited so that floating point precision issues (without round, these end up being n.999999999999994 or something) aren't there
+                #check to make sure they still work if normal data is used
+                self.total_distance_label.setText(str(round(float(global_states.queue[0]["sensor_data"][7])*float(global_states.queue[0]["sensor_data"][9]),2))+"units")
+                self.this_read_distance_label.setText(str(round(float(global_states.queue[0]["sensor_data"][8])*float(global_states.queue[0]["sensor_data"][9]),2))+"units")
             else:
                 self.total_distance_label.setText("--")
                 self.this_read_distance_label.setText("--")
