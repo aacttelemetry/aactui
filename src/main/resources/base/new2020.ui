@@ -1702,7 +1702,7 @@
     <property name="title">
      <string>Debug</string>
     </property>
-    <addaction name="actionPush_log_to_file"/>
+    <addaction name="actionClear_log"/>
     <addaction name="actionGenerate_random_data"/>
    </widget>
    <addaction name="menuSettings"/>
@@ -1750,9 +1750,9 @@
     <string>About</string>
    </property>
   </action>
-  <action name="actionPush_log_to_file">
+  <action name="actionClear_log">
    <property name="text">
-    <string>Push log to file</string>
+    <string>Clear logfile</string>
    </property>
   </action>
   <action name="actionGenerate_random_data">

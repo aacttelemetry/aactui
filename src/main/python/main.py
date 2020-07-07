@@ -35,13 +35,6 @@ from streamoverlay import Ui_OverlayWindow
 #initiate logging
 #auto-save to file using basicConfig
 #see https://stackoverflow.com/questions/6386698/how-to-write-to-a-file-using-the-logging-python-module
-'''
-logging.basicConfig(filename="log.log",
-                    filemode='a',
-                    format='%(asctime)s,%(msecs)d %(name)s %(levelname)s %(message)s',
-                    datefmt='%H:%M:%S',
-                    level=logging.DEBUG)
-'''
 appctxt = ApplicationContext()
 logpath = appctxt.get_resource('log.txt')#gets relative/absolute path through fbs
 logging.basicConfig(filename=logpath,format='%(asctime)s - %(levelname)s - %(message)s',level=logging.DEBUG)
@@ -490,6 +483,7 @@ class ApplicationWindow(QtWidgets.QMainWindow,Ui_MainWindow):
         self.actionReport.triggered.connect(self.open_report)
         self.actionAbout.triggered.connect(self.open_about_dialog)
         self.actionGenerate_random_data.triggered.connect(self.start_reading_debug_random)
+        self.actionClear_log.triggered.connect(self.clear_log_file)
 
         global_states.main_timer.timeout.connect(self.update_data)
         #https://eli.thegreenplace.net/2011/04/25/passing-extra-arguments-to-pyqt-slot
@@ -498,6 +492,14 @@ class ApplicationWindow(QtWidgets.QMainWindow,Ui_MainWindow):
         self.pushButton_11.clicked.connect(self.open_stream_window)        
         #self.find_row_button.clicked.connect(self.open_dialog_window)
         self.find_row_button.clicked.connect(self.find_equivalent_row)
+    def clear_log_file(self):
+        logfile = open(logpath, 'r')
+        lines = 0
+        for i in logfile:
+            lines += 1
+        logfile.close()
+        open(logpath, 'w').close()
+        logging.debug("Cleared %s lines in log.txt"%lines)
     def load_prefs(self):
         pass
     def open_dialog_window(self):
