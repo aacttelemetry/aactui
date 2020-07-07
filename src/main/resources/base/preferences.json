@@ -1,0 +1,9 @@
+{
+    "raspberry_ip":"",
+    "raspberry_port":"",
+    "spreadsheet_id":"",
+    "spreadsheet_range":"",
+    "stream_key":"",
+    "livestream_ip":""
+
+}
