@@ -19,7 +19,7 @@ import webbrowser
 import ast
 import math
 import random
-import logging #logging.debug/info/warning/error("str")
+import logging #logging.debug/info/warning/error/critical("str")
 import json
 from datetime import datetime
 from PIL import Image
@@ -41,6 +41,10 @@ appctxt = ApplicationContext()
 logpath = appctxt.get_resource('log.txt')#gets relative/absolute path through fbs
 logging.basicConfig(filename=logpath,format='%(asctime)s - %(levelname)s - %(message)s',level=logging.DEBUG)
 prefpath = appctxt.get_resource('preferences.json')
+
+#ignore matplotlib's findfont and filling up log.txt
+#consider use of preferences file to set this internally later
+logging.getLogger('matplotlib').setLevel(20)#info or higher
 #endregion
 
 #region variables
