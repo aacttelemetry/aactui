@@ -1,4 +1,4 @@
-#region modules/imports
+#region modules/init
 from __future__ import unicode_literals
 from fbs_runtime.application_context.PyQt5 import ApplicationContext
 from googleapiclient.discovery import build
@@ -31,6 +31,20 @@ from new2020 import Ui_MainWindow
 from testwindow import Ui_MainWindow2
 from testdialog import Ui_Dialog
 from streamoverlay import Ui_OverlayWindow
+#-----------#
+#initiate logging
+#auto-save to file using basicConfig
+#see https://stackoverflow.com/questions/6386698/how-to-write-to-a-file-using-the-logging-python-module
+'''
+logging.basicConfig(filename="log.log",
+                    filemode='a',
+                    format='%(asctime)s,%(msecs)d %(name)s %(levelname)s %(message)s',
+                    datefmt='%H:%M:%S',
+                    level=logging.DEBUG)
+'''
+appctxt = ApplicationContext()
+logpath = appctxt.get_resource('log.txt')#gets relative/absolute path through fbs
+logging.basicConfig(filename=logpath,format='%(asctime)s - %(levelname)s - %(message)s',level=logging.DEBUG)
 #endregion
 
 #region variables
@@ -484,6 +498,8 @@ class ApplicationWindow(QtWidgets.QMainWindow,Ui_MainWindow):
         self.pushButton_11.clicked.connect(self.open_stream_window)        
         #self.find_row_button.clicked.connect(self.open_dialog_window)
         self.find_row_button.clicked.connect(self.find_equivalent_row)
+    def load_prefs(self):
+        pass
     def open_dialog_window(self):
         self.new_dialog = Test_Dialog()
         self.new_dialog.show()
