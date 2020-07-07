@@ -44,7 +44,8 @@ prefpath = appctxt.get_resource('preferences.json')
 
 #ignore matplotlib's findfont and filling up log.txt
 #consider use of preferences file to set this internally later
-logging.getLogger('matplotlib').setLevel(20)#info or higher
+#changed from setting the entire matplotlib to info or greater to https://stackoverflow.com/questions/56618739/matplotlib-throws-warning-message-because-of-findfont-python
+logging.getLogger('matplotlib.font_manager').disabled = True
 #endregion
 
 #region variables
