@@ -20,6 +20,7 @@ import ast
 import math
 import random
 import logging #logging.debug/info/warning/error("str")
+import json
 from datetime import datetime
 from PIL import Image
 from PyQt5 import QtCore, QtWidgets, QtGui
@@ -32,12 +33,13 @@ from testwindow import Ui_MainWindow2
 from testdialog import Ui_Dialog
 from streamoverlay import Ui_OverlayWindow
 #-----------#
-#initiate logging
+#get paths and initiate logging
 #auto-save to file using basicConfig
 #see https://stackoverflow.com/questions/6386698/how-to-write-to-a-file-using-the-logging-python-module
 appctxt = ApplicationContext()
 logpath = appctxt.get_resource('log.txt')#gets relative/absolute path through fbs
 logging.basicConfig(filename=logpath,format='%(asctime)s - %(levelname)s - %(message)s',level=logging.DEBUG)
+prefpath = appctxt.get_resource('preferences.json')
 #endregion
 
 #region variables
@@ -493,14 +495,16 @@ class ApplicationWindow(QtWidgets.QMainWindow,Ui_MainWindow):
         #self.find_row_button.clicked.connect(self.open_dialog_window)
         self.find_row_button.clicked.connect(self.find_equivalent_row)
     def clear_log_file(self):
-        logfile = open(logpath, 'r')
+        log_file = open(logpath, 'r')
         lines = 0
-        for i in logfile:
+        for i in log_file:
             lines += 1
-        logfile.close()
-        open(logpath, 'w').close()
-        logging.debug("Cleared %s lines in log.txt"%lines)
+        log_file.close()
+        open(logpath, 'w').close() #overwrite with nothing
+        logging.debug("Cleared %s lines in log.txt"%lines) #technically it also adds this but then we know who to blame for a blank log file
     def load_prefs(self):
+        #pref_file = open(prefpath,"r")
+        #data = json.load(pref_file)
         pass
     def open_dialog_window(self):
         self.new_dialog = Test_Dialog()
