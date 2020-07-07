@@ -28,6 +28,7 @@ from numpy import arange, sin, pi
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.figure import Figure
 #-----------#
+import herctools
 from new2020 import Ui_MainWindow
 from testwindow import Ui_MainWindow2
 from testdialog import Ui_Dialog
@@ -543,8 +544,8 @@ class ApplicationWindow(QtWidgets.QMainWindow,Ui_MainWindow):
             #tab 3 labels (non-course)
             self.latitude_label.setText(global_states.queue[0]["sensor_data"][10])
             self.longitude_label.setText(global_states.queue[0]["sensor_data"][11])
-            self.altitude_label.setText("unimplemented") ####implement barometric formula
-            self.pressure_label.setText(global_states.queue[0]["fitbit_data"][1])
+            self.altitude_label.setText(str(herctools.pressure_to_height(global_states.queue[0]["fitbit_data"][1]))+" m")
+            self.pressure_label.setText(global_states.queue[0]["fitbit_data"][1]+" Pa")
             self.delta_x_label.setText(global_states.queue[0]["sensor_data"][5])
             self.delta_y_label.setText(global_states.queue[0]["sensor_data"][6])
             self.resultant_label.setText("unimplemented")
