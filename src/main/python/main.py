@@ -39,6 +39,7 @@ from streamoverlay import Ui_OverlayWindow
 #see https://stackoverflow.com/questions/6386698/how-to-write-to-a-file-using-the-logging-python-module
 appctxt = ApplicationContext()
 logpath = appctxt.get_resource('log.txt')#gets relative/absolute path through fbs
+#set log via preferences?
 logging.basicConfig(filename=logpath,format='%(asctime)s - %(levelname)s - %(message)s',level=logging.DEBUG)
 prefpath = appctxt.get_resource('preferences.json')
 
