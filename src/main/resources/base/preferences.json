@@ -1,40 +1,40 @@
 {
-    "strings":{
-        "raspberry_ip":"",
-        "raspberry_port":"",
-        "spreadsheet_id":"",
-        "spreadsheet_range":"",
-        "stream_key":"",
-        "livestream_ip":""
+    "strings": {
+        "raspberry_ip": "",
+        "raspberry_port": "",
+        "spreadsheet_id": "",
+        "spreadsheet_range": "",
+        "stream_key": "",
+        "livestream_ip": ""
     },
-    "debug":{
-        "disable_font_debug":true,
-        "plotting":{
-            "longitude_offset":"0",
-            "latitude_offset":"0"
+    "debug": {
+        "disable_font_debug": true,
+        "plotting": {
+            "longitude_offset": "0",
+            "latitude_offset": "0"
         },
-        "randomization_init":{
-            "heartrate":"50",
-            "air_pressure":"15",
-            "relative_humidity":"0",
-            "temperature":"0",
-            "pitch":"0",
-            "roll":"0",
-            "yaw":"0",
-            "total_x_disp":"0",
-            "total_y_disp":"0",
-            "total_vectors":"0",
-            "this_read_vectors":"0",
-            "internal_length_constant":"0.18",
-            "latitude":"0",
-            "longitude":"0",
-            "hdop":"0",
-            "satellite_count":"0"
+        "randomization_init": {
+            "heartrate": "50",
+            "air_pressure": "15",
+            "relative_humidity": "0",
+            "temperature": "0",
+            "pitch": "0",
+            "roll": "0",
+            "yaw": "0",
+            "total_x_disp": "0",
+            "total_y_disp": "0",
+            "total_vectors": "0",
+            "this_read_vectors": "0",
+            "internal_length_constant": "0.18",
+            "latitude": "0",
+            "longitude": "0",
+            "hdop": "0",
+            "satellite_count": "0"
         }
     },
-    "general":{
-        "max_values_on_graphs":10000,
-        "data_read_delay":1000,
-        "max_timeout":10
+    "general": {
+        "max_values_on_graphs": 10000,
+        "data_read_delay": 1000,
+        "max_timeout": 11
     }
 }

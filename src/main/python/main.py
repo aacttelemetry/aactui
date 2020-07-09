@@ -641,6 +641,16 @@ class PreferencesWindow(QtWidgets.QMainWindow,Ui_PreferencesWindow):
         super().__init__()
         self.ui = Ui_PreferencesWindow()
         self.ui.setupUi(self)
+        self.ui.save_prefs_button.clicked.connect(self.printvars)
+    def printvars(self):       
+        pref_file = open(prefpath) 
+        data = json.load(pref_file)
+        pref_file.close()
+        data['general']['max_timeout'] += 1
+        pref_file = open(prefpath, "w+")
+        pref_file.write(json.dumps(data,indent=4))
+        pref_file.close()
+
 
 class Test_Dialog(QtWidgets.QDialog):
     def __init__(self):
