@@ -73,7 +73,7 @@
     <item>
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>2</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="tab_4">
        <attribute name="title">
@@ -102,7 +102,7 @@
            <item>
             <layout class="QGridLayout" name="gridLayout_3">
              <item row="1" column="1">
-              <widget class="QLineEdit" name="lineEdit_2">
+              <widget class="QLineEdit" name="rpi_port_edit">
                <property name="placeholderText">
                 <string>Enter Port</string>
                </property>
@@ -126,7 +126,7 @@
               </widget>
              </item>
              <item row="0" column="1">
-              <widget class="QLineEdit" name="lineEdit">
+              <widget class="QLineEdit" name="rpi_ip_edit">
                <property name="placeholderText">
                 <string>Enter IP (198.168.1.76)</string>
                </property>
@@ -196,7 +196,7 @@
               </widget>
              </item>
              <item row="1" column="1">
-              <widget class="QLineEdit" name="lineEdit_4">
+              <widget class="QLineEdit" name="sheet_range_edit">
                <property name="placeholderText">
                 <string>Enter a valid range</string>
                </property>
@@ -213,14 +213,14 @@
               </widget>
              </item>
              <item row="1" column="3">
-              <widget class="QLineEdit" name="lineEdit_5">
+              <widget class="QLineEdit" name="sheet_row_edit">
                <property name="placeholderText">
                 <string>1 - infinity</string>
                </property>
               </widget>
              </item>
              <item row="0" column="1" colspan="3">
-              <widget class="QLineEdit" name="lineEdit_3">
+              <widget class="QLineEdit" name="sheet_id_edit">
                <property name="placeholderText">
                 <string>Enter spreadsheet ID (not the link)</string>
                </property>
@@ -290,14 +290,14 @@
               </widget>
              </item>
              <item row="0" column="1">
-              <widget class="QLineEdit" name="lineEdit_6">
+              <widget class="QLineEdit" name="datapase_path_edit">
                <property name="placeholderText">
                 <string>The database's file path will be displayed here once selected</string>
                </property>
               </widget>
              </item>
              <item row="2" column="1">
-              <widget class="QLineEdit" name="lineEdit_8">
+              <widget class="QLineEdit" name="database_row_edit">
                <property name="placeholderText">
                 <string>1 - infinity</string>
                </property>
@@ -1453,9 +1453,6 @@
                </property>
               </widget>
              </item>
-             <item row="0" column="1">
-              <widget class="QLineEdit" name="lineEdit_10"/>
-             </item>
              <item row="1" column="1">
               <widget class="QDateTimeEdit" name="dateTimeEdit">
                <property name="displayFormat">
@@ -1466,52 +1463,10 @@
                </property>
               </widget>
              </item>
-            </layout>
-           </item>
-           <item>
-            <layout class="QVBoxLayout" name="verticalLayout_13">
-             <item>
-              <widget class="QPushButton" name="find_row_button">
-               <property name="text">
-                <string>TS to human</string>
-               </property>
-              </widget>
+             <item row="0" column="1">
+              <widget class="QLineEdit" name="timestamp_edit"/>
              </item>
-             <item>
-              <widget class="QPushButton" name="pushButton">
-               <property name="text">
-                <string>human to TS</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
-           <item>
-            <layout class="QGridLayout" name="gridLayout_17">
-             <property name="sizeConstraint">
-              <enum>QLayout::SetDefaultConstraint</enum>
-             </property>
              <item row="2" column="0">
-              <widget class="QLabel" name="label_4">
-               <property name="text">
-                <string>Timestamp</string>
-               </property>
-               <property name="alignment">
-                <set>Qt::AlignCenter</set>
-               </property>
-              </widget>
-             </item>
-             <item row="2" column="1">
-              <widget class="QLineEdit" name="lineEdit_16">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="0">
               <widget class="QLabel" name="label_121">
                <property name="text">
                 <string>Row</string>
@@ -1521,8 +1476,8 @@
                </property>
               </widget>
              </item>
-             <item row="1" column="1">
-              <widget class="QLineEdit" name="lineEdit_11">
+             <item row="2" column="1">
+              <widget class="QLineEdit" name="row_edit">
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
                  <horstretch>0</horstretch>
@@ -1534,17 +1489,48 @@
                </property>
               </widget>
              </item>
-             <item row="3" column="0">
+            </layout>
+           </item>
+           <item>
+            <layout class="QVBoxLayout" name="verticalLayout_13">
+             <item>
+              <widget class="QPushButton" name="find_row_button">
+               <property name="text">
+                <string>TS -&gt; human</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="pushButton">
+               <property name="text">
+                <string>human -&gt;TS</string>
+               </property>
+              </widget>
+             </item>
+             <item>
               <widget class="QPushButton" name="pushButton_2">
                <property name="text">
                 <string>Row -&gt; TS</string>
                </property>
               </widget>
              </item>
-             <item row="3" column="1">
-              <widget class="QPushButton" name="pushButton_3">
+            </layout>
+           </item>
+           <item>
+            <layout class="QGridLayout" name="gridLayout_17">
+             <property name="sizeConstraint">
+              <enum>QLayout::SetDefaultConstraint</enum>
+             </property>
+             <item row="0" column="1">
+              <widget class="QLabel" name="label_4">
                <property name="text">
-                <string>TS -&gt; Row</string>
+                <string>Use this tool to convert timestamps to human-readable time and vice versa. If available, then the associated (estimated) row will also be displayed. The function can be reversed to find the associated timestamp with a given row number.</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignCenter</set>
+               </property>
+               <property name="wordWrap">
+                <bool>true</bool>
                </property>
               </widget>
              </item>
@@ -1575,7 +1561,7 @@
               </widget>
              </item>
              <item row="1" column="1">
-              <widget class="QLineEdit" name="lineEdit_9"/>
+              <widget class="QLineEdit" name="livestream_ip_edit"/>
              </item>
              <item row="1" column="0">
               <widget class="QLabel" name="label_107">
@@ -1605,7 +1591,7 @@
               </widget>
              </item>
              <item row="2" column="1">
-              <widget class="QLineEdit" name="lineEdit_7"/>
+              <widget class="QLineEdit" name="stream_key_edit"/>
              </item>
              <item row="1" column="2">
               <widget class="QPushButton" name="pushButton_13">
