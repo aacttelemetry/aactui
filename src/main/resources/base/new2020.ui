@@ -73,7 +73,7 @@
     <item>
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>0</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="tab_4">
        <attribute name="title">
@@ -1494,21 +1494,21 @@
            <item>
             <layout class="QVBoxLayout" name="verticalLayout_13">
              <item>
-              <widget class="QPushButton" name="find_row_button">
+              <widget class="QPushButton" name="ts_human_button">
                <property name="text">
                 <string>TS -&gt; human</string>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="pushButton">
+              <widget class="QPushButton" name="human_ts_button">
                <property name="text">
                 <string>human -&gt;TS</string>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="pushButton_2">
+              <widget class="QPushButton" name="row_ts_button">
                <property name="text">
                 <string>Row -&gt; TS</string>
                </property>
@@ -1548,7 +1548,7 @@
            <item row="0" column="0">
             <layout class="QGridLayout" name="gridLayout_14">
              <item row="0" column="0" colspan="3">
-              <widget class="QPushButton" name="pushButton_11">
+              <widget class="QPushButton" name="open_overlay_button">
                <property name="minimumSize">
                 <size>
                  <width>0</width>
@@ -1584,7 +1584,7 @@
               </widget>
              </item>
              <item row="2" column="2">
-              <widget class="QPushButton" name="pushButton_17">
+              <widget class="QPushButton" name="load_stream_values_button">
                <property name="text">
                 <string>Read Last Values</string>
                </property>
@@ -1594,7 +1594,7 @@
               <widget class="QLineEdit" name="stream_key_edit"/>
              </item>
              <item row="1" column="2">
-              <widget class="QPushButton" name="pushButton_13">
+              <widget class="QPushButton" name="save_stream_values_button">
                <property name="minimumSize">
                 <size>
                  <width>150</width>
@@ -1668,8 +1668,7 @@
     <property name="title">
      <string>Settings</string>
     </property>
-    <addaction name="actionChange_Graph_Size"/>
-    <addaction name="actionChange_Read_Rate"/>
+    <addaction name="actionOpen_Preferences"/>
    </widget>
    <widget class="QMenu" name="menuLinks">
     <property name="title">
@@ -1701,9 +1700,9 @@
     <string>Change Graph Size</string>
    </property>
   </action>
-  <action name="actionChange_Read_Rate">
+  <action name="actionOpen_Preferences">
    <property name="text">
-    <string>Change Read Rate</string>
+    <string>Open Preferences</string>
    </property>
   </action>
   <action name="actionHERC_Guidebook">
