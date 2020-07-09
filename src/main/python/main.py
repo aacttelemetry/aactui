@@ -33,6 +33,7 @@ from new2020 import Ui_MainWindow
 from testwindow import Ui_MainWindow2
 from testdialog import Ui_Dialog
 from streamoverlay import Ui_OverlayWindow
+from preferences import Ui_PreferencesWindow
 #-----------#
 #get paths and initiate logging
 #auto-save to file using basicConfig
@@ -483,8 +484,7 @@ class ApplicationWindow(QtWidgets.QMainWindow,Ui_MainWindow):
         self.open_data_button.clicked.connect(self.open_data_spreadsheet)
 
         #top menu bar
-        self.actionChange_Graph_Size.triggered.connect(self.open_graph_size_dialog)
-        self.actionChange_Read_Rate.triggered.connect(self.open_read_delay_dialog)
+        self.actionOpen_Preferences.triggered.connect(self.open_prefs_window)
         self.actionHERC_Guidebook.triggered.connect(self.open_graph_size_dialog)
         self.actionObstacle_Task_Table.triggered.connect(self.open_herc_book)
         self.actionGithub.triggered.connect(self.open_github)
@@ -498,9 +498,7 @@ class ApplicationWindow(QtWidgets.QMainWindow,Ui_MainWindow):
         #https://eli.thegreenplace.net/2011/04/25/passing-extra-arguments-to-pyqt-slot
         #self.pushButton.clicked.connect(lambda: self.add_msg("a"))
 
-        self.pushButton_11.clicked.connect(self.open_stream_window)        
-        #self.find_row_button.clicked.connect(self.open_dialog_window)
-        self.find_row_button.clicked.connect(self.find_equivalent_row)
+        self.open_overlay_button.clicked.connect(self.open_stream_window)        
     def clear_log_file(self):
         log_file = open(logpath, 'r')
         lines = 0
@@ -509,15 +507,16 @@ class ApplicationWindow(QtWidgets.QMainWindow,Ui_MainWindow):
         log_file.close()
         open(logpath, 'w').close() #overwrite with nothing
         logging.debug("Cleared %s lines in log.txt"%lines) #technically it also adds this but then we know who to blame for a blank log file
-    def load_prefs(self):
-        #pref_file = open(prefpath,"r")
-        #data = json.load(pref_file)
-        pass
+    def open_prefs_window(self):
+        self.prefs_dialog = PreferencesWindow()
+        self.prefs_dialog.setWindowTitle("Preferences")
+        self.prefs_dialog.show()
     def open_dialog_window(self):
         self.new_dialog = Test_Dialog()
         self.new_dialog.show()
     def open_stream_window(self):
         self.about_dialog = StreamWindow()
+        self.about_dialog.setWindowTitle("Stream Overlay")
         self.about_dialog.show()
     def start_reading_socket(self):
         socket_connect()
@@ -588,6 +587,13 @@ class ApplicationWindow(QtWidgets.QMainWindow,Ui_MainWindow):
             pass
             #global_states.main_timer.stop()f
     #hmmm
+    def convert_timestamp(self):
+        pass
+        #val = self.lineedit.text()
+    def find_equivalent_row(self):
+        print(self.dateTimeEdit.dateTime().toPyDateTime())
+        print(self.dateTimeEdit.dateTime().toPyDateTime().timestamp())
+        print(time.time())
     def open_herc_book(self):
         webbrowser.open("https://www.nasa.gov/sites/default/files/atoms/files/edu_herc-guidebook_2020v2.pdf")
     def open_obstacle_table(self):
@@ -601,10 +607,6 @@ class ApplicationWindow(QtWidgets.QMainWindow,Ui_MainWindow):
     def open_data_spreadsheet(self):
         pass
         #webbrowser.open("")
-    def find_equivalent_row(self):
-        print(self.dateTimeEdit.dateTime().toPyDateTime())
-        print(self.dateTimeEdit.dateTime().toPyDateTime().timestamp())
-        print(time.time())
     def open_stream_overlay(self):
         pass
     def open_db_file_dialog(self):
@@ -633,6 +635,12 @@ class StreamWindow(QtWidgets.QMainWindow,Ui_OverlayWindow):
         #self.ui.test_icon.setPixmap(QtGui.QPixmap('flag.png'))
     def start_anim(self):
         self.ui.test_anim_label.startAnimation()
+
+class PreferencesWindow(QtWidgets.QMainWindow,Ui_PreferencesWindow):
+    def __init__(self):
+        super().__init__()
+        self.ui = Ui_PreferencesWindow()
+        self.ui.setupUi(self)
 
 class Test_Dialog(QtWidgets.QDialog):
     def __init__(self):
