@@ -660,11 +660,14 @@ class PreferencesWindow(QtWidgets.QMainWindow,Ui_PreferencesWindow):
         full={}
         for element in lineedits:
             full[element.objectName()] = element.text()
+        #i'm sure there's a better way to do this but i don't know what it is nor could i find it
         for i in data['mapping']:
             exec('%s = "%s"'%(data['mapping'][i],full[i]))
         pref_file = open(prefpath, "w+") #write and truncate
         pref_file.write(json.dumps(data,indent=4)) #reduces compression for the sake of readability
         pref_file.close()
+        logging.info('Updated preferences.')
+        self.close()
 
 
 class Test_Dialog(QtWidgets.QDialog):
