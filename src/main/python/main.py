@@ -642,13 +642,28 @@ class PreferencesWindow(QtWidgets.QMainWindow,Ui_PreferencesWindow):
         self.ui = Ui_PreferencesWindow()
         self.ui.setupUi(self)
         self.ui.save_prefs_button.clicked.connect(self.printvars)
-    def printvars(self):       
+        self.ui.toggle_variables_button.clicked.connect(self.toggle_advanced)
+
+        #load prefs
         pref_file = open(prefpath) 
         data = json.load(pref_file)
         pref_file.close()
-        data['general']['max_timeout'] += 1
-        pref_file = open(prefpath, "w+")
-        pref_file.write(json.dumps(data,indent=4))
+        for i in data['mapping']:
+            exec('self.ui.%s.setText(%s)'%(i,data['mapping'][i]))
+    def toggle_advanced(self):
+        pass
+    def printvars(self):
+        pref_file = open(prefpath) 
+        data = json.load(pref_file)
+        pref_file.close()
+        lineedits = self.findChildren(QtWidgets.QLineEdit) #get every QLineEdit (object), iterable
+        full={}
+        for element in lineedits:
+            full[element.objectName()] = element.text()
+        for i in data['mapping']:
+            exec('%s = "%s"'%(data['mapping'][i],full[i]))
+        pref_file = open(prefpath, "w+") #write and truncate
+        pref_file.write(json.dumps(data,indent=4)) #reduces compression for the sake of readability
         pref_file.close()
 
 
