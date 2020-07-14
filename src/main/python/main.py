@@ -649,6 +649,9 @@ class PreferencesWindow(QtWidgets.QMainWindow,Ui_PreferencesWindow):
         self.ui.save_prefs_button.clicked.connect(self.printvars)
         self.ui.toggle_variables_button.clicked.connect(self.toggle_advanced)
 
+        #toggle debug labels
+        self.debug_labels = False
+
         #load prefs
         pref_file = open(prefpath) 
         data = json.load(pref_file)
@@ -656,14 +659,16 @@ class PreferencesWindow(QtWidgets.QMainWindow,Ui_PreferencesWindow):
         for i in herctools.preferences_mapping:
             exec('self.ui.%s.setText(%s)'%(i,herctools.preferences_mapping[i]))
     def toggle_advanced(self):
-        #consider moving labels and mapping fields into a .py file?
-        #check if x label is either normal or not; does not require an internal variable
-        pref_file = open(prefpath) 
-        data = json.load(pref_file)
-        pref_file.close()
-        labels = self.findChildren(QtWidgets.QLabel)
-        for label in labels:
-            print('"'+label.objectName()+'":["'+label.text()+'",""],')
+        if self.debug_labels:
+            self.debug_labels = False
+            for i in herctools.label_toggles:
+                exec('self.ui.%s.setText("%s")'%(i,herctools.label_toggles[i][0]))
+            self.ui.toggle_variables_button.setText("Show internal variable names")
+        else:
+            self.debug_labels = True
+            for i in herctools.label_toggles:
+                exec('self.ui.%s.setText("%s")'%(i,herctools.label_toggles[i][1]))
+                self.ui.toggle_variables_button.setText("Hide internal variable names")
     def printvars(self):
         pref_file = open(prefpath) 
         data = json.load(pref_file)
