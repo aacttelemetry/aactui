@@ -653,8 +653,8 @@ class PreferencesWindow(QtWidgets.QMainWindow,Ui_PreferencesWindow):
         pref_file = open(prefpath) 
         data = json.load(pref_file)
         pref_file.close()
-        for i in data['mapping']:
-            exec('self.ui.%s.setText(%s)'%(i,data['mapping'][i]))
+        for i in herctools.preferences_mapping:
+            exec('self.ui.%s.setText(%s)'%(i,herctools.preferences_mapping[i]))
     def toggle_advanced(self):
         #consider moving labels and mapping fields into a .py file?
         #check if x label is either normal or not; does not require an internal variable
@@ -673,8 +673,8 @@ class PreferencesWindow(QtWidgets.QMainWindow,Ui_PreferencesWindow):
         for element in lineedits:
             full[element.objectName()] = element.text()
         #i'm sure there's a better way to do this but i don't know what it is nor could i find it
-        for i in data['mapping']:
-            exec('%s = "%s"'%(data['mapping'][i],full[i]))
+        for i in herctools.preferences_mapping:
+            exec('%s = "%s"'%(herctools.preferences_mapping[i],full[i]))
         pref_file = open(prefpath, "w+") #write and truncate
         pref_file.write(json.dumps(data,indent=4)) #reduces compression for the sake of readability
         pref_file.close()
