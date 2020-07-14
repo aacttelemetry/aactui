@@ -4,6 +4,7 @@ from PyQt5 import QtCore, QtWebSockets, QtNetwork
 from PyQt5.QtCore import QUrl, QCoreApplication, QTimer
 from PyQt5.QtWidgets import QApplication
 
+#from: https://stackoverflow.com/questions/48709399/pyqt5-connect-to-websocket-wait-for-signal-from-server
 
 class Client(QtCore.QObject):
     def __init__(self, parent):
