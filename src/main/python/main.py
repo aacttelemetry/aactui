@@ -99,6 +99,9 @@ class global_states:
     current_section = '' #competition section
     elapsed_section_time = 0 #elapsed time, in seconds, that the section hasn't changed
 
+    #debug
+    longitude_offset = 0
+    latitude_offset = 0
 
     def reset_vars(self): #reset to initial states
         #lmao
@@ -136,6 +139,8 @@ class global_states:
         self.y_pos = []
         self.current_section = '' #competition section
         self.elapsed_section_time = 0 #elapsed time, in seconds, that the section hasn't changed
+        self.longitude_offset = 0
+        self.latitude_offset = 0
 
 class global_constants:
     #implement gsheets and external database stuff here
@@ -651,7 +656,14 @@ class PreferencesWindow(QtWidgets.QMainWindow,Ui_PreferencesWindow):
         for i in data['mapping']:
             exec('self.ui.%s.setText(%s)'%(i,data['mapping'][i]))
     def toggle_advanced(self):
-        pass
+        #consider moving labels and mapping fields into a .py file?
+        #check if x label is either normal or not; does not require an internal variable
+        pref_file = open(prefpath) 
+        data = json.load(pref_file)
+        pref_file.close()
+        labels = self.findChildren(QtWidgets.QLabel)
+        for label in labels:
+            print('"'+label.objectName()+'":["'+label.text()+'",""],')
     def printvars(self):
         pref_file = open(prefpath) 
         data = json.load(pref_file)
