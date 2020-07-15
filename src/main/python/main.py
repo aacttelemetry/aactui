@@ -155,6 +155,11 @@ def get_prefs():
     pref_file.close()
     return data
 
+def write_prefs(data):
+    pref_file = open(prefpath, "w+") #write and truncate
+    pref_file.write(json.dumps(data,indent=4)) #reduces compression for the sake of readability
+    pref_file.close()  
+
 def generate_random_data():
     #does not actually do the calculations for vector math, should be fixed later
     #also does not cap values such as humidity at 0/100 or exhibit asymptotic behavior
@@ -477,10 +482,13 @@ class ApplicationWindow(QtWidgets.QMainWindow,Ui_MainWindow):
         self.widget_2 = data_plots(self.widget_2)
         self.widget_6 = histogram_plot(self.widget_6)
 
-
         #event handlers
         #tab 1 - data source
         self.connect_raspi_button.clicked.connect(self.start_reading_socket)
+        self.socket_load_button.clicked.connect(self.load_socket_values)
+        self.socket_save_button.clicked.connect(self.save_socket_values)
+        self.sheets_load_button.clicked.connect(self.load_sheet_values)
+        self.sheets_save_button.clicked.connect(self.save_sheet_values)
         
         #tab 2 - data uploading
 
@@ -512,8 +520,6 @@ class ApplicationWindow(QtWidgets.QMainWindow,Ui_MainWindow):
         self.actionClear_log.triggered.connect(self.clear_log_file)
 
         global_states.main_timer.timeout.connect(self.update_data)
-        #https://eli.thegreenplace.net/2011/04/25/passing-extra-arguments-to-pyqt-slot
-        #self.pushButton.clicked.connect(lambda: self.add_msg("a"))
 
     def clear_log_file(self):
         log_file = open(logpath, 'r')
@@ -602,7 +608,6 @@ class ApplicationWindow(QtWidgets.QMainWindow,Ui_MainWindow):
         else:
             pass
             #global_states.main_timer.stop()f
-    #hmmm
     def convert_timestamp(self):
         pass
         #val = self.lineedit.text()
@@ -619,14 +624,30 @@ class ApplicationWindow(QtWidgets.QMainWindow,Ui_MainWindow):
         data = get_prefs()
         data['strings']['livestream_ip'] = self.livestream_ip_edit.text()
         data['strings']['stream_key'] = self.stream_key_edit.text()
-        pref_file = open(prefpath, "w+") #write and truncate
-        pref_file.write(json.dumps(data,indent=4)) #reduces compression for the sake of readability
-        pref_file.close()
+        write_prefs(data)
         logging.info('Saved stream values.')
-    def load_data_values(self):
+    def load_socket_values(self):
         data = get_prefs()
-    def save_data_values(self):
+        self.rpi_ip_edit.setText(data['strings']['raspberry_ip'])
+        self.rpi_port_edit.setText(data['strings']['raspberry_port'])
+        logging.info('Loaded socket values.')
+    def save_socket_values(self):
         data = get_prefs()
+        data['strings']['raspberry_ip'] = self.rpi_ip_edit.text()
+        data['strings']['raspberry_port'] = self.rpi_port_edit.text()
+        write_prefs(data)
+        logging.info('Saved socket values.')
+    def load_sheet_values(self):
+        data = get_prefs()
+        self.sheet_id_edit.setText(data['strings']['spreadsheet_id'])
+        self.sheet_range_edit.setText(data['strings']['spreadsheet_range'])
+        logging.info('Loaded sheet values.')
+    def save_sheet_values(self):
+        data = get_prefs()
+        data['strings']['spreadsheet_id'] = self.sheet_id_edit.text()
+        data['strings']['spreadsheet_range'] = self.sheet_range_edit.text()
+        write_prefs(data)
+        logging.info('Saved sheet values.')
     def open_herc_book(self):
         webbrowser.open("https://www.nasa.gov/sites/default/files/atoms/files/edu_herc-guidebook_2020v2.pdf")
     def open_obstacle_table(self):
@@ -705,9 +726,7 @@ class PreferencesWindow(QtWidgets.QMainWindow,Ui_PreferencesWindow):
         #i'm sure there's a better way to do this but i don't know what it is nor could i find it
         for i in herctools.preferences_mapping:
             exec('%s = "%s"'%(herctools.preferences_mapping[i],full[i]))
-        pref_file = open(prefpath, "w+") #write and truncate
-        pref_file.write(json.dumps(data,indent=4)) #reduces compression for the sake of readability
-        pref_file.close()
+        write_prefs(data)
         logging.info('Updated preferences.')
         self.close()
 
