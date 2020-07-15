@@ -479,20 +479,26 @@ class ApplicationWindow(QtWidgets.QMainWindow,Ui_MainWindow):
 
 
         #event handlers
-        #tab 1
+        #tab 1 - data source
         self.connect_raspi_button.clicked.connect(self.start_reading_socket)
         
-        #tab 2
+        #tab 2 - data uploading
 
-        #tab 3
+        #tab 3 - positioning/competition data
         self.open_obstacles_button.clicked.connect(self.open_obstacle_table)
-        self.open_guidebook_button.clicked.connect(self.open_herc_book)
+        self.open_guidebook_button.clicked.connect(self.open_herc_book)   
 
-        #tab 5
+        #tab 4 - environmental data
+
+        #tab 5 - streaming/utilities
         self.open_github_button.clicked.connect(self.open_github)
         self.open_report_button.clicked.connect(self.open_report)
         self.open_website_button.clicked.connect(self.open_website)
         self.open_data_button.clicked.connect(self.open_data_spreadsheet)
+        self.open_overlay_button.clicked.connect(self.open_stream_window)
+        self.ts_human_button.clicked.connect(self.find_equivalent_row)  
+        self.save_stream_values_button.clicked.connect(self.save_stream_values)
+        self.load_stream_values_button.clicked.connect(self.load_stream_values)
 
         #top menu bar
         self.actionOpen_Preferences.triggered.connect(self.open_prefs_window)
@@ -509,8 +515,6 @@ class ApplicationWindow(QtWidgets.QMainWindow,Ui_MainWindow):
         #https://eli.thegreenplace.net/2011/04/25/passing-extra-arguments-to-pyqt-slot
         #self.pushButton.clicked.connect(lambda: self.add_msg("a"))
 
-        self.open_overlay_button.clicked.connect(self.open_stream_window)
-        self.ts_human_button.clicked.connect(self.find_equivalent_row)        
     def clear_log_file(self):
         log_file = open(logpath, 'r')
         lines = 0
@@ -606,11 +610,20 @@ class ApplicationWindow(QtWidgets.QMainWindow,Ui_MainWindow):
         print(self.dateTimeEdit.dateTime().toPyDateTime()) #to native python time object ("yyyy-mm-dd hh:mm:ss")
         print(self.dateTimeEdit.dateTime().toPyDateTime().timestamp()) #unix timestamp
         print(time.time()) #unix timestamp
-    def read_stream_values(self):
+    def load_stream_values(self):
         data = get_prefs()
+        self.livestream_ip_edit.setText(data['strings']['livestream_ip'])
+        self.stream_key_edit.setText(data['strings']['stream_key'])
+        logging.info('Loaded stream values.')
     def save_stream_values(self):
         data = get_prefs()
-    def read_data_values(self):
+        data['strings']['livestream_ip'] = self.livestream_ip_edit.text()
+        data['strings']['stream_key'] = self.stream_key_edit.text()
+        pref_file = open(prefpath, "w+") #write and truncate
+        pref_file.write(json.dumps(data,indent=4)) #reduces compression for the sake of readability
+        pref_file.close()
+        logging.info('Saved stream values.')
+    def load_data_values(self):
         data = get_prefs()
     def save_data_values(self):
         data = get_prefs()
