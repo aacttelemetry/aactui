@@ -149,6 +149,12 @@ class global_constants:
 #endregion
 
 #region global data functions
+def get_prefs():
+    pref_file = open(prefpath) 
+    data = json.load(pref_file)
+    pref_file.close()
+    return data
+
 def generate_random_data():
     #does not actually do the calculations for vector math, should be fixed later
     #also does not cap values such as humidity at 0/100 or exhibit asymptotic behavior
@@ -503,7 +509,8 @@ class ApplicationWindow(QtWidgets.QMainWindow,Ui_MainWindow):
         #https://eli.thegreenplace.net/2011/04/25/passing-extra-arguments-to-pyqt-slot
         #self.pushButton.clicked.connect(lambda: self.add_msg("a"))
 
-        self.open_overlay_button.clicked.connect(self.open_stream_window)        
+        self.open_overlay_button.clicked.connect(self.open_stream_window)
+        self.ts_human_button.clicked.connect(self.find_equivalent_row)        
     def clear_log_file(self):
         log_file = open(logpath, 'r')
         lines = 0
@@ -596,9 +603,17 @@ class ApplicationWindow(QtWidgets.QMainWindow,Ui_MainWindow):
         pass
         #val = self.lineedit.text()
     def find_equivalent_row(self):
-        print(self.dateTimeEdit.dateTime().toPyDateTime())
-        print(self.dateTimeEdit.dateTime().toPyDateTime().timestamp())
-        print(time.time())
+        print(self.dateTimeEdit.dateTime().toPyDateTime()) #to native python time object ("yyyy-mm-dd hh:mm:ss")
+        print(self.dateTimeEdit.dateTime().toPyDateTime().timestamp()) #unix timestamp
+        print(time.time()) #unix timestamp
+    def read_stream_values(self):
+        data = get_prefs()
+    def save_stream_values(self):
+        data = get_prefs()
+    def read_data_values(self):
+        data = get_prefs()
+    def save_data_values(self):
+        data = get_prefs()
     def open_herc_book(self):
         webbrowser.open("https://www.nasa.gov/sites/default/files/atoms/files/edu_herc-guidebook_2020v2.pdf")
     def open_obstacle_table(self):
@@ -639,23 +654,22 @@ class StreamWindow(QtWidgets.QMainWindow,Ui_OverlayWindow):
         #self.ui.test_icon.setPixmap(QtGui.QPixmap('C:/Users/Kisun/Desktop/ui-new/src/main/resources/flag-test.svg'))
         #self.ui.test_icon.setPixmap(QtGui.QPixmap('flag.png'))
     def start_anim(self):
-        self.ui.test_anim_label.startAnimation()
+        pass
+        #self.ui.test_anim_label.startAnimation()
 
 class PreferencesWindow(QtWidgets.QMainWindow,Ui_PreferencesWindow):
     def __init__(self):
         super().__init__()
         self.ui = Ui_PreferencesWindow()
         self.ui.setupUi(self)
-        self.ui.save_prefs_button.clicked.connect(self.printvars)
+        self.ui.save_prefs_button.clicked.connect(self.save_prefs)
         self.ui.toggle_variables_button.clicked.connect(self.toggle_advanced)
 
         #toggle debug labels
         self.debug_labels = False
 
         #load prefs
-        pref_file = open(prefpath) 
-        data = json.load(pref_file)
-        pref_file.close()
+        data = get_prefs()
         for i in herctools.preferences_mapping:
             exec('self.ui.%s.setText(%s)'%(i,herctools.preferences_mapping[i]))
     def toggle_advanced(self):
@@ -669,10 +683,8 @@ class PreferencesWindow(QtWidgets.QMainWindow,Ui_PreferencesWindow):
             for i in herctools.label_toggles:
                 exec('self.ui.%s.setText("%s")'%(i,herctools.label_toggles[i][1]))
                 self.ui.toggle_variables_button.setText("Hide internal variable names")
-    def printvars(self):
-        pref_file = open(prefpath) 
-        data = json.load(pref_file)
-        pref_file.close()
+    def save_prefs(self):
+        data = get_prefs()
         lineedits = self.findChildren(QtWidgets.QLineEdit) #get every QLineEdit (object), iterable
         full={}
         for element in lineedits:
