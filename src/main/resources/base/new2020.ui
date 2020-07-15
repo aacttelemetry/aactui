@@ -119,7 +119,7 @@
               </widget>
              </item>
              <item row="1" column="2">
-              <widget class="QPushButton" name="socket_save_button">
+              <widget class="QPushButton" name="socket_load_button">
                <property name="toolTip">
                 <string>Load saved values for these fields from the preferences file.</string>
                </property>
@@ -136,7 +136,7 @@
               </widget>
              </item>
              <item row="0" column="2">
-              <widget class="QPushButton" name="socket_load_button">
+              <widget class="QPushButton" name="socket_save_button">
                <property name="toolTip">
                 <string>Save currently inputted values to the preferences file.</string>
                </property>
