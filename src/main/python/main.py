@@ -162,6 +162,7 @@ class WebsocketClient(QtCore.QObject):
         self.client.open(QtCore.QUrl("ws://%s:%s"%(ip,port)))
         #self.client.open(QtCore.QUrl("ws://echo.websocket.org"))
         self.client.pong.connect(self.onPong)
+        self.client.connected.connect(self.send_init_message)
 
         self.client.textMessageReceived.connect(self.ontextmsgreceived)
 
@@ -170,9 +171,9 @@ class WebsocketClient(QtCore.QObject):
         #self.client.ping(b"foo")
         self.client.ping()
 
-    def send_message(self):
+    def send_init_message(self):
         print("client: send_message")
-        self.client.sendTextMessage("asd")
+        self.client.sendTextMessage("ui")
 
     def onPong(self, elapsedTime, payload):
         print("onPong - time: {} ; payload: {}".format(elapsedTime, payload))
@@ -559,9 +560,11 @@ class ApplicationWindow(QtWidgets.QMainWindow,Ui_MainWindow):
 
         global_states.main_timer.timeout.connect(self.update_data)
     def ws_test(self):
-        wsclient = WebsocketClient(self,"localhost","8765")
+        target_ip = self.rpi_ip_edit.text()
+        target_port = self.rpi_port_edit.text()
+        wsclient = WebsocketClient(self,target_ip,target_port)
         #wsclient.do_ping()
-        wsclient.send_message()
+
     def clear_log_file(self):
         log_file = open(logpath, 'r')
         lines = 0
