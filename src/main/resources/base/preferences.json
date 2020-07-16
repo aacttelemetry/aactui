@@ -1,7 +1,7 @@
 {
     "strings": {
-        "raspberry_ip": "-",
-        "raspberry_port": "-",
+        "raspberry_ip": "192.168.1.85",
+        "raspberry_port": "8765",
         "spreadsheet_id": "-",
         "spreadsheet_range": "-",
         "stream_key": "-",

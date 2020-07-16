@@ -167,20 +167,20 @@ class WebsocketClient(QtCore.QObject):
         self.client.textMessageReceived.connect(self.ontextmsgreceived)
 
     def do_ping(self):
-        print("client: do_ping")
+        logging.info("client: do_ping")
         #self.client.ping(b"foo")
         self.client.ping()
 
     def send_init_message(self):
-        print("client: send_message")
+        logging.info("Sending identifying message.")
         self.client.sendTextMessage("ui")
 
     def onPong(self, elapsedTime, payload):
-        print("onPong - time: {} ; payload: {}".format(elapsedTime, payload))
+        logging.info("onPong - time: {} ; payload: {}".format(elapsedTime, payload))
 
     def error(self, error_code):
-        print("error code: {}".format(error_code))
-        print(self.client.errorString())
+        logging.error("error code: {}".format(error_code))
+        logging.error(self.client.errorString())
 
     def close(self):
         self.client.close()
@@ -560,6 +560,7 @@ class ApplicationWindow(QtWidgets.QMainWindow,Ui_MainWindow):
 
         global_states.main_timer.timeout.connect(self.update_data)
     def ws_test(self):
+        logging.info("Connecting to Raspberry Pi via Websockets...")
         target_ip = self.rpi_ip_edit.text()
         target_port = self.rpi_port_edit.text()
         wsclient = WebsocketClient(self,target_ip,target_port)
