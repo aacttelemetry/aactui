@@ -13,7 +13,7 @@ class Client(QtCore.QObject):
         self.client =  QtWebSockets.QWebSocket("",QtWebSockets.QWebSocketProtocol.Version13,None)
         self.client.error.connect(self.error)
 
-        self.client.open(QUrl("wss://echo.websocket.org"))
+        self.client.open(QtCore.QUrl("wss://echo.websocket.org"))
         self.client.pong.connect(self.onPong)
 
         self.client.textMessageReceived.connect(self.ontextmsgreceived)

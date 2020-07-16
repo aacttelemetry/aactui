@@ -23,7 +23,7 @@ import logging #logging.debug/info/warning/error/critical("str")
 import json
 from datetime import datetime
 from PIL import Image
-from PyQt5 import QtCore, QtWidgets, QtGui
+from PyQt5 import QtCore, QtWidgets, QtGui, QtWebSockets, QtNetwork
 from numpy import arange, sin, pi
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.figure import Figure
@@ -149,6 +149,44 @@ class global_constants:
 #endregion
 
 #region global data functions
+class WebsocketClient(QtCore.QObject):
+    def __init__(self, parent, ip, port):
+        super().__init__(parent)
+
+        self.client =  QtWebSockets.QWebSocket("",QtWebSockets.QWebSocketProtocol.Version13,None)
+        self.client.error.connect(self.error)
+
+        #I don't understand why, but this doesn't work if we connect to echo.websocket.org (the standalone version of this script does, however.)
+        #works otherwise thought
+
+        self.client.open(QtCore.QUrl("ws://%s:%s"%(ip,port)))
+        #self.client.open(QtCore.QUrl("ws://echo.websocket.org"))
+        self.client.pong.connect(self.onPong)
+
+        self.client.textMessageReceived.connect(self.ontextmsgreceived)
+
+    def do_ping(self):
+        print("client: do_ping")
+        #self.client.ping(b"foo")
+        self.client.ping()
+
+    def send_message(self):
+        print("client: send_message")
+        self.client.sendTextMessage("asd")
+
+    def onPong(self, elapsedTime, payload):
+        print("onPong - time: {} ; payload: {}".format(elapsedTime, payload))
+
+    def error(self, error_code):
+        print("error code: {}".format(error_code))
+        print(self.client.errorString())
+
+    def close(self):
+        self.client.close()
+
+    def ontextmsgreceived(self, message):
+        print("Text MSG received", message)
+
 def get_prefs():
     pref_file = open(prefpath) 
     data = json.load(pref_file)
@@ -484,7 +522,7 @@ class ApplicationWindow(QtWidgets.QMainWindow,Ui_MainWindow):
 
         #event handlers
         #tab 1 - data source
-        self.connect_raspi_button.clicked.connect(self.start_reading_socket)
+        self.connect_raspi_button.clicked.connect(self.ws_test)
         self.socket_load_button.clicked.connect(self.load_socket_values)
         self.socket_save_button.clicked.connect(self.save_socket_values)
         self.sheets_load_button.clicked.connect(self.load_sheet_values)
@@ -520,7 +558,10 @@ class ApplicationWindow(QtWidgets.QMainWindow,Ui_MainWindow):
         self.actionClear_log.triggered.connect(self.clear_log_file)
 
         global_states.main_timer.timeout.connect(self.update_data)
-
+    def ws_test(self):
+        wsclient = WebsocketClient(self,"localhost","8765")
+        #wsclient.do_ping()
+        wsclient.send_message()
     def clear_log_file(self):
         log_file = open(logpath, 'r')
         lines = 0
@@ -661,8 +702,6 @@ class ApplicationWindow(QtWidgets.QMainWindow,Ui_MainWindow):
     def open_data_spreadsheet(self):
         pass
         #webbrowser.open("")
-    def open_stream_overlay(self):
-        pass
     def open_db_file_dialog(self):
         pass
     def open_about_dialog(self):
