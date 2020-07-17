@@ -318,7 +318,7 @@
              <item row="0" column="1">
               <widget class="QLineEdit" name="database_path_edit">
                <property name="placeholderText">
-                <string>The database's file path will be displayed here once selected</string>
+                <string>Click &quot;Open .db&quot; or enter path here</string>
                </property>
               </widget>
              </item>

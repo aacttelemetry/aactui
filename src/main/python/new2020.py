@@ -868,7 +868,7 @@ class Ui_MainWindow(object):
         self.connect_db_button.setText(_translate("MainWindow", "Start Reading"))
         self.label_8.setText(_translate("MainWindow", "File path:"))
         self.label_10.setText(_translate("MainWindow", "Start from row:"))
-        self.database_path_edit.setPlaceholderText(_translate("MainWindow", "The database\'s file path will be displayed here once selected"))
+        self.database_path_edit.setPlaceholderText(_translate("MainWindow", "Click \"Open .db\" or enter path here"))
         self.database_row_edit.setPlaceholderText(_translate("MainWindow", "1 - infinity"))
         self.label_15.setText(_translate("MainWindow", "last_read = "))
         self.label_16.setText(_translate("MainWindow", "failed_attempts = "))
