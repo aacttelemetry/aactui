@@ -23,3 +23,17 @@
 2020-07-16 15:07:25,812 - INFO - Loaded socket values.
 2020-07-16 15:09:44,734 - INFO - Loaded socket values.
 2020-07-16 15:13:02,503 - INFO - Loaded socket values.
+2020-07-16 15:17:24,968 - INFO - Connecting to Raspberry Pi via Websockets...
+2020-07-16 15:17:24,988 - ERROR - error code: 2
+2020-07-16 15:17:24,988 - ERROR - Host not found
+2020-07-16 15:17:28,680 - INFO - Loaded socket values.
+2020-07-16 15:17:29,650 - INFO - Connecting to Raspberry Pi via Websockets...
+2020-07-16 15:17:29,674 - INFO - Sending identifying message.
+2020-07-16 15:34:04,706 - INFO - Connecting to Raspberry Pi via Websockets...
+2020-07-16 15:34:04,730 - ERROR - error code: 2
+2020-07-16 15:34:04,730 - ERROR - Host not found
+2020-07-16 15:34:06,108 - INFO - Loaded socket values.
+2020-07-16 15:34:07,124 - INFO - Connecting to Raspberry Pi via Websockets...
+2020-07-16 15:34:07,150 - INFO - Sending identifying message.
+2020-07-16 16:22:49,410 - ERROR - error code: 1
+2020-07-16 16:22:49,410 - ERROR - The remote host closed the connection

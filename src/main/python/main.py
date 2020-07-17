@@ -77,7 +77,7 @@ class global_states:
     usingdb = False #using the database? consider deprecating in favor of using an int with data source
     db_target = '' #database path
     data_source = "Nothing" #string representing current data source; consider using an int instead of string
-    socket_object = None
+    websocket_object = None
     main_timer = QtCore.QTimer() #main timer running all updates
     first = False #is first read?
     halt = False #i assume somewhere there's supposed to be a check that says "if halt = true, do something" but this technically does anything right now lol
@@ -125,7 +125,7 @@ class global_states:
         self.usingdb = False #using the database? consider deprecating in favor of using an int with data source
         self.db_target = '' #database path
         self.data_source = "Nothing" #string representing current data source; consider using an int instead of string
-        self.socket_object = None
+        self.websocket_object = None
         self.main_timer = QtCore.QTimer() #main timer running all updates
         self.first = False #is first read?
         self.halt = False #i assume somewhere there's supposed to be a check that says "if halt = true, do something" but this technically does anything right now lol
@@ -523,12 +523,13 @@ class ApplicationWindow(QtWidgets.QMainWindow,Ui_MainWindow):
 
         #event handlers
         #tab 1 - data source
-        self.connect_raspi_button.clicked.connect(self.ws_test)
+        self.connect_raspi_button.clicked.connect(self.ws_connect)
         self.socket_load_button.clicked.connect(self.load_socket_values)
         self.socket_save_button.clicked.connect(self.save_socket_values)
         self.sheets_load_button.clicked.connect(self.load_sheet_values)
         self.sheets_save_button.clicked.connect(self.save_sheet_values)
         
+
         #tab 2 - data uploading
 
         #tab 3 - positioning/competition data
@@ -559,13 +560,11 @@ class ApplicationWindow(QtWidgets.QMainWindow,Ui_MainWindow):
         self.actionClear_log.triggered.connect(self.clear_log_file)
 
         global_states.main_timer.timeout.connect(self.update_data)
-    def ws_test(self):
+    def ws_connect(self):
         logging.info("Connecting to Raspberry Pi via Websockets...")
         target_ip = self.rpi_ip_edit.text()
         target_port = self.rpi_port_edit.text()
-        wsclient = WebsocketClient(self,target_ip,target_port)
-        #wsclient.do_ping()
-
+        global_states.websocket_object = WebsocketClient(self,target_ip,target_port)
     def clear_log_file(self):
         log_file = open(logpath, 'r')
         lines = 0
