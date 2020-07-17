@@ -550,7 +550,6 @@ class ApplicationWindow(QtWidgets.QMainWindow,Ui_MainWindow):
 
         #top menu bar
         self.actionOpen_Preferences.triggered.connect(self.open_prefs_window)
-        self.actionHERC_Guidebook.triggered.connect(self.open_graph_size_dialog)
         self.actionObstacle_Task_Table.triggered.connect(self.open_herc_book)
         self.actionGithub.triggered.connect(self.open_github)
         self.actionWebsite.triggered.connect(self.open_website)
