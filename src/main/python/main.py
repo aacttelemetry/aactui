@@ -528,7 +528,7 @@ class ApplicationWindow(QtWidgets.QMainWindow,Ui_MainWindow):
         self.socket_save_button.clicked.connect(self.save_socket_values)
         self.sheets_load_button.clicked.connect(self.load_sheet_values)
         self.sheets_save_button.clicked.connect(self.save_sheet_values)
-        
+        self.open_db_button.clicked.connect(self.open_db_file_dialog)
 
         #tab 2 - data uploading
 
@@ -706,12 +706,12 @@ class ApplicationWindow(QtWidgets.QMainWindow,Ui_MainWindow):
         pass
         #webbrowser.open("")
     def open_db_file_dialog(self):
-        pass
+        fileName = QtWidgets.QFileDialog.getOpenFileName(self,"Open Database File", "","Database Files (*.db);;All Files (*)")
+        if fileName:
+            self.database_path_edit.setText(fileName[0])
+        else:
+            logging.info("No file selected, ignoring.")
     def open_about_dialog(self):
-        pass
-    def open_graph_size_dialog(self):
-        pass
-    def open_read_delay_dialog(self):
         pass
 
 #endregion
