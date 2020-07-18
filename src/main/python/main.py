@@ -164,7 +164,7 @@ class WebsocketClient(QtCore.QObject):
         self.client.pong.connect(self.onPong)
         self.client.connected.connect(self.send_init_message)
 
-        self.client.textMessageReceived.connect(self.ontextmsgreceived)
+        self.client.textMessageReceived.connect(self.message_received)
 
     def do_ping(self):
         logging.info("client: do_ping")
@@ -185,8 +185,9 @@ class WebsocketClient(QtCore.QObject):
     def close(self):
         self.client.close()
 
-    def ontextmsgreceived(self, message):
-        print("Text MSG received", message)
+    def message_received(self, message):
+        logging.debug(message)
+        global_states.queue.append(ast.literal_eval(message))
 
 def get_prefs():
     pref_file = open(prefpath) 
@@ -443,6 +444,18 @@ class data_plots(data_plot_class):
         data_plot_class.__init__(self, *args, **kwargs)
         global_states.main_timer.timeout.connect(self.update_figure)
 
+        #set default values
+        data = get_prefs()
+        self.default_heartrate = float(data['debug']['randomization_init']['heartrate'])
+        self.default_humidity = float(data['debug']['randomization_init']['relative_humidity'])
+        self.default_temperature = float(data['debug']['randomization_init']['temperature'])
+
+    def update_defaults(self):
+        data = get_prefs()
+        self.default_heartrate = int(data['debug']['randomization_init']['heartrate'])
+        self.default_humidity = float(data['debug']['randomization_init']['relative_humidity'])
+        self.default_temperature = float(data['debug']['randomization_init']['temperature'])
+
     def update_figure(self):
         if global_states.data_source != "Nothing" and global_states.queue:
             if len(global_states.x_data) > global_states.max_values:
@@ -452,17 +465,28 @@ class data_plots(data_plot_class):
                     del global_states.temp_values[0]
                     del global_states.heartrate_values[0]
             global_states.x_data.append(int(global_states.queue[0]["timestamp"]))
-            global_states.temp_values.append(float(global_states.queue[0]["sensor_data"][1]))
-            global_states.humidity_values.append(float(global_states.queue[0]["sensor_data"][0]))
-            heartrate = float(global_states.queue[0]["fitbit_data"][0])
+            if global_states.queue[0]["sensor_data"][0] == "--": #we can reasonably assume that if humidity isn't available, temperature shouldn't either
+                global_states.temp_values.append(self.default_temperature)
+                global_states.humidity_values.append(self.default_humidity)
+            else:
+                global_states.temp_values.append(float(global_states.queue[0]["sensor_data"][1]))
+                global_states.humidity_values.append(float(global_states.queue[0]["sensor_data"][0]))
+            if global_states.queue[0]["fitbit_data"][0] == "--":
+                heartrate = self.default_heartrate
+            else:
+                heartrate = int(global_states.queue[0]["fitbit_data"][0])
 
             self.axes1.cla()
             self.axes2.cla()
             self.axes3.cla()
-            self.axes1.plot(global_states.x_data, global_states.temp_values, 'r') #self.axes.plot(<list of global_states.x_data values>, <list of y values>, <formatting string>)
-            self.axes2.plot(global_states.x_data, global_states.humidity_values, 'b')
-            if heartrate == 0:
-                global_states.heartrate_values.append(global_states.last_valid_hr)
+            if global_states.queue[0]["sensor_data"][0] == "--":
+                self.axes1.plot(global_states.x_data, global_states.temp_values, 'r--') #self.axes.plot(<list of global_states.x_data values>, <list of y values>, <formatting string>)
+                self.axes2.plot(global_states.x_data, global_states.humidity_values, 'b--')
+            else:
+                self.axes1.plot(global_states.x_data, global_states.temp_values, 'r') #self.axes.plot(<list of global_states.x_data values>, <list of y values>, <formatting string>)
+                self.axes2.plot(global_states.x_data, global_states.humidity_values, 'b')
+            if global_states.queue[0]["fitbit_data"][0] == "--":
+                global_states.heartrate_values.append(heartrate)
                 self.axes3.plot(global_states.x_data, global_states.heartrate_values, 'm--')
             else:
                 global_states.heartrate_values.append(heartrate)
@@ -564,6 +588,8 @@ class ApplicationWindow(QtWidgets.QMainWindow,Ui_MainWindow):
         target_ip = self.rpi_ip_edit.text()
         target_port = self.rpi_port_edit.text()
         global_states.websocket_object = WebsocketClient(self,target_ip,target_port)
+        global_states.data_source = "Websocket"
+        global_states.main_timer.start(1000)
     def clear_log_file(self):
         log_file = open(logpath, 'r')
         lines = 0
@@ -587,8 +613,14 @@ class ApplicationWindow(QtWidgets.QMainWindow,Ui_MainWindow):
         socket_connect()
         global_states.main_timer.start(1000)
     def start_reading_debug_random(self):
-        global_states.data_source = "Debug"
-        global_states.main_timer.start(1000)
+        if global_states.data_source != "Debug":
+            global_states.data_source = "Debug"
+            global_states.main_timer.start(1000)
+            logging.info("Started randomized data generation.")
+        else: #if == debug
+            global_states.main_timer.stop()
+            global_states.data_source = "Nothing"
+            logging.info("Stopped randomized data generation.")
     def update_data(self):
         if global_states.data_source == "Socket" and global_states.socket_object != None:
             get_data_sockets()
@@ -641,7 +673,7 @@ class ApplicationWindow(QtWidgets.QMainWindow,Ui_MainWindow):
             #tab 4 labels
             self.temperature_label.setText(global_states.queue[0]["sensor_data"][1])
             self.humiditity_label.setText(global_states.queue[0]["sensor_data"][0])
-            if global_states.queue[0]["fitbit_data"][0] != "0":
+            if global_states.queue[0]["fitbit_data"][0] != "--":
                 self.body_presence_label.setText("Body currently present on Fitbit.")
                 self.bpm_label.setText(global_states.queue[0]["fitbit_data"][0])
             else:
@@ -649,6 +681,7 @@ class ApplicationWindow(QtWidgets.QMainWindow,Ui_MainWindow):
                 self.bpm_label.setText("--")
             del global_states.queue[0]
         else:
+            #reset all labels to initial state, *then* stop the timer
             pass
             #global_states.main_timer.stop()f
     def convert_timestamp(self):
