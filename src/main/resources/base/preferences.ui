@@ -18,7 +18,7 @@
     <item row="0" column="0" colspan="2">
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>2</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">
@@ -95,7 +95,7 @@
              <x>0</x>
              <y>0</y>
              <width>727</width>
-             <height>626</height>
+             <height>655</height>
             </rect>
            </property>
            <layout class="QFormLayout" name="formLayout_2">
@@ -113,195 +113,195 @@
               </property>
              </widget>
             </item>
-            <item row="3" column="0">
+            <item row="4" column="0">
              <widget class="QLineEdit" name="offset_longitude_edit">
               <property name="toolTip">
                <string/>
               </property>
              </widget>
             </item>
-            <item row="5" column="0" colspan="2">
+            <item row="6" column="0" colspan="2">
              <widget class="Line" name="line">
               <property name="orientation">
                <enum>Qt::Horizontal</enum>
               </property>
              </widget>
             </item>
-            <item row="6" column="0" colspan="2">
+            <item row="7" column="0" colspan="2">
              <widget class="QLabel" name="label_14">
               <property name="text">
                <string>Data randomization defaults/starting values:</string>
               </property>
              </widget>
             </item>
-            <item row="7" column="0">
+            <item row="8" column="0">
              <widget class="QLineEdit" name="debug_heartrate_edit"/>
             </item>
-            <item row="7" column="1">
+            <item row="8" column="1">
              <widget class="QLabel" name="debug_heartrate_label">
               <property name="text">
                <string>Heartrate</string>
               </property>
              </widget>
             </item>
-            <item row="8" column="0">
+            <item row="9" column="0">
              <widget class="QLineEdit" name="debug_pressure_edit"/>
             </item>
-            <item row="8" column="1">
+            <item row="9" column="1">
              <widget class="QLabel" name="debug_pressure_label">
               <property name="text">
                <string>Air pressure</string>
               </property>
              </widget>
             </item>
-            <item row="9" column="0">
+            <item row="10" column="0">
              <widget class="QLineEdit" name="debug_humidity_edit"/>
             </item>
-            <item row="9" column="1">
+            <item row="10" column="1">
              <widget class="QLabel" name="debug_humidity_label">
               <property name="text">
                <string>Relative humidity (0-99.9%)</string>
               </property>
              </widget>
             </item>
-            <item row="10" column="0">
+            <item row="11" column="0">
              <widget class="QLineEdit" name="debug_temperature_edit"/>
             </item>
-            <item row="10" column="1">
+            <item row="11" column="1">
              <widget class="QLabel" name="debug_temperature_label">
               <property name="text">
                <string>Temperature</string>
               </property>
              </widget>
             </item>
-            <item row="11" column="0">
+            <item row="12" column="0">
              <widget class="QLineEdit" name="debug_pitch_edit"/>
             </item>
-            <item row="11" column="1">
+            <item row="12" column="1">
              <widget class="QLabel" name="debug_pitch_label">
               <property name="text">
                <string>Pitch</string>
               </property>
              </widget>
             </item>
-            <item row="12" column="0">
+            <item row="13" column="0">
              <widget class="QLineEdit" name="debug_roll_edit"/>
             </item>
-            <item row="12" column="1">
+            <item row="13" column="1">
              <widget class="QLabel" name="debug_roll_label">
               <property name="text">
                <string>Roll</string>
               </property>
              </widget>
             </item>
-            <item row="13" column="0">
+            <item row="14" column="0">
              <widget class="QLineEdit" name="debug_yaw_edit"/>
             </item>
-            <item row="13" column="1">
+            <item row="14" column="1">
              <widget class="QLabel" name="debug_yaw_label">
               <property name="text">
                <string>Yaw</string>
               </property>
              </widget>
             </item>
-            <item row="14" column="0">
+            <item row="15" column="0">
              <widget class="QLineEdit" name="debug_toty_edit"/>
             </item>
-            <item row="14" column="1">
+            <item row="15" column="1">
              <widget class="QLabel" name="debug_totx_label">
               <property name="text">
                <string>Total x displacement</string>
               </property>
              </widget>
             </item>
-            <item row="15" column="0">
+            <item row="16" column="0">
              <widget class="QLineEdit" name="debug_totx_edit"/>
             </item>
-            <item row="15" column="1">
+            <item row="16" column="1">
              <widget class="QLabel" name="debug_toty_label">
               <property name="text">
                <string>Total y displacement</string>
               </property>
              </widget>
             </item>
-            <item row="16" column="0">
+            <item row="17" column="0">
              <widget class="QLineEdit" name="debug_totall_edit"/>
             </item>
-            <item row="16" column="1">
+            <item row="17" column="1">
              <widget class="QLabel" name="debug_totall_label">
               <property name="text">
                <string>Total number of vectors read</string>
               </property>
              </widget>
             </item>
-            <item row="17" column="0">
+            <item row="18" column="0">
              <widget class="QLineEdit" name="debug_vectors_edit"/>
             </item>
-            <item row="17" column="1">
+            <item row="18" column="1">
              <widget class="QLabel" name="debug_this_read_label">
               <property name="text">
                <string>Vectors read this data frame</string>
               </property>
              </widget>
             </item>
-            <item row="18" column="0">
+            <item row="19" column="0">
              <widget class="QLineEdit" name="debug_length_constant_edit"/>
             </item>
-            <item row="18" column="1">
+            <item row="19" column="1">
              <widget class="QLabel" name="debug_length_constant_label">
               <property name="text">
                <string>Internal length constant</string>
               </property>
              </widget>
             </item>
-            <item row="19" column="0">
+            <item row="20" column="0">
              <widget class="QLineEdit" name="debug_latitude_edit"/>
             </item>
-            <item row="19" column="1">
+            <item row="20" column="1">
              <widget class="QLabel" name="debug_latitude_label">
               <property name="text">
                <string>Latitude</string>
               </property>
              </widget>
             </item>
-            <item row="20" column="0">
+            <item row="21" column="0">
              <widget class="QLineEdit" name="debug_longitude_edit"/>
             </item>
-            <item row="20" column="1">
+            <item row="21" column="1">
              <widget class="QLabel" name="debug_longitude_label">
               <property name="text">
                <string>Longitude</string>
               </property>
              </widget>
             </item>
-            <item row="21" column="0">
+            <item row="22" column="0">
              <widget class="QLineEdit" name="debug_hdop_edit"/>
             </item>
-            <item row="21" column="1">
+            <item row="22" column="1">
              <widget class="QLabel" name="debug_hdop_label">
               <property name="text">
                <string>HDOP (horizontal dilution of precision, GPS)</string>
               </property>
              </widget>
             </item>
-            <item row="22" column="0">
+            <item row="23" column="0">
              <widget class="QLineEdit" name="debug_satellite_edit"/>
             </item>
-            <item row="22" column="1">
+            <item row="23" column="1">
              <widget class="QLabel" name="debug_satellite_label">
               <property name="text">
                <string>Satellite count (GPS)</string>
               </property>
              </widget>
             </item>
-            <item row="1" column="0" colspan="2">
+            <item row="2" column="0" colspan="2">
              <widget class="Line" name="line_2">
               <property name="orientation">
                <enum>Qt::Horizontal</enum>
               </property>
              </widget>
             </item>
-            <item row="2" column="0" colspan="2">
+            <item row="3" column="0" colspan="2">
              <widget class="QLabel" name="label_30">
               <property name="toolTip">
                <string>For any positioning value read, offset the final value by this amount.</string>
@@ -311,20 +311,30 @@
               </property>
              </widget>
             </item>
-            <item row="3" column="1">
+            <item row="4" column="1">
              <widget class="QLabel" name="offset_longitude_label">
               <property name="text">
                <string>Longitude</string>
               </property>
              </widget>
             </item>
-            <item row="4" column="0">
+            <item row="5" column="0">
              <widget class="QLineEdit" name="offset_latitude_edit"/>
             </item>
-            <item row="4" column="1">
+            <item row="5" column="1">
              <widget class="QLabel" name="offset_latitude_label">
               <property name="text">
                <string>Latitude</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0">
+             <widget class="QLineEdit" name="debug_level_edit"/>
+            </item>
+            <item row="1" column="1">
+             <widget class="QLabel" name="debug_level_label">
+              <property name="text">
+               <string>Logging level (DEBUG/INFO/WARNING/ERROR/CRITICAL)</string>
               </property>
              </widget>
             </item>
