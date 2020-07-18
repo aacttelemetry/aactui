@@ -14,10 +14,10 @@
             "latitude_offset": "0"
         },
         "randomization_init": {
-            "heartrate": "50",
-            "air_pressure": "15",
-            "relative_humidity": "0",
-            "temperature": "0",
+            "heartrate": "70",
+            "air_pressure": "80000",
+            "relative_humidity": "50.00",
+            "temperature": "27.50",
             "pitch": "0",
             "roll": "0",
             "yaw": "0",
