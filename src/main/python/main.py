@@ -88,7 +88,6 @@ class global_states:
     humidity_values = []
     heartrate_values = []
     heartrate_historical = []
-    last_valid_hr = 70 #default heartrate is assumed to be 70
     
     #gps map
     #positioning_graphs:
@@ -126,7 +125,6 @@ class global_states:
         self.db_target = '' #database path
         self.data_source = "Nothing" #string representing current data source; consider using an int instead of string
         self.websocket_object = None
-        self.main_timer = QtCore.QTimer() #main timer running all updates
         self.first = False #is first read?
         self.halt = False #i assume somewhere there's supposed to be a check that says "if halt = true, do something" but this technically does anything right now lol
         self.x_data = [] #x axis, timestamps
@@ -134,7 +132,6 @@ class global_states:
         self.humidity_values = []
         self.heartrate_values = []
         self.heartrate_historical = []
-        self.last_valid_hr = 70 #default heartrate is assumed to be 70
         self.x_pos = []
         self.y_pos = []
         self.current_section = '' #competition section
@@ -157,7 +154,7 @@ class WebsocketClient(QtCore.QObject):
         self.client.error.connect(self.error)
 
         #I don't understand why, but this doesn't work if we connect to echo.websocket.org (the standalone version of this script does, however.)
-        #works otherwise thought
+        #works otherwise though
 
         self.client.open(QtCore.QUrl("ws://%s:%s"%(ip,port)))
         #self.client.open(QtCore.QUrl("ws://echo.websocket.org"))
@@ -492,7 +489,6 @@ class data_plots(data_plot_class):
                 global_states.heartrate_values.append(heartrate)
                 global_states.heartrate_historical.append(heartrate)
                 self.axes3.plot(global_states.x_data, global_states.heartrate_values, 'm')
-                global_states.last_valid_hr = heartrate
             self.draw()
         else:
             pass
@@ -584,6 +580,8 @@ class ApplicationWindow(QtWidgets.QMainWindow,Ui_MainWindow):
 
         global_states.main_timer.timeout.connect(self.update_data)
     def ws_connect(self):
+        #implement toggle, i.e. change button text and test for enabled/not
+        #if nothing, do below; if websockets, close websocket; if anything else, reset variables and close websocket
         logging.info("Connecting to Raspberry Pi via Websockets...")
         target_ip = self.rpi_ip_edit.text()
         target_port = self.rpi_port_edit.text()
