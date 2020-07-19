@@ -771,7 +771,8 @@ class StreamWindow(QtWidgets.QMainWindow,Ui_OverlayWindow):
         #self.ui.test_icon.setPixmap(QtGui.QPixmap('C:/Users/Kisun/Desktop/ui-new/src/main/resources/flag-test.svg'))
         #self.ui.test_icon.setPixmap(QtGui.QPixmap('flag.png'))
     def start_anim(self):
-        pass
+        self.ui.variable_remaining_label.startAnimation()
+        print("ok")
         #self.ui.test_anim_label.startAnimation()
 
 class PreferencesWindow(QtWidgets.QMainWindow,Ui_PreferencesWindow):
