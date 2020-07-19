@@ -140,6 +140,11 @@ class global_states:
         self.latitude_offset = 0
 
 class global_constants:
+    gsheets_service = None
+    spreadsheet_id = ""
+    value_render_option = "FORMATTED_VALUE"
+    date_time_render_option = "FORMATTED_STRING"
+
     #implement gsheets and external database stuff here
     pass
 
@@ -350,7 +355,7 @@ def update_data_gsheets(initial=False,initial_row=2,initial_timeout=10):
         pass
     if len(global_states.queue) < 4: #Only attempt to read new data if there are less than four seconds of data remaining. 
         read_range = ("Data!A%s:N"%global_states.last_read)
-        request = service.spreadsheets().values().get(spreadsheetId=SPREADSHEET_ID, range=read_range, valueRenderOption=value_render_option, dateTimeRenderOption=date_time_render_option)
+        request = global_constants.gsheets_service.spreadsheets().values().get(spreadsheetId=global_constants.spreadsheet_id, range=read_range, valueRenderOption=global_constants.value_render_option, dateTimeRenderOption=global_constants.date_time_render_option)
         response = request.execute()
         if len(response) == 2:
             global_states.failed_attempts += 1
@@ -458,7 +463,7 @@ class data_plots(data_plot_class):
     def update_figure(self):
         if global_states.data_source != "Nothing" and global_states.queue:
             if len(global_states.x_data) > global_states.max_values:
-                for i in range(0,(len(global_states.x_data)-global_states.max_values)):
+                for _ in range(0,(len(global_states.x_data)-global_states.max_values)):
                     del global_states.x_data[0]
                     del global_states.humidity_values[0]
                     del global_states.temp_values[0]
@@ -594,7 +599,7 @@ class ApplicationWindow(QtWidgets.QMainWindow,Ui_MainWindow):
     def clear_log_file(self):
         log_file = open(logpath, 'r')
         lines = 0
-        for i in log_file:
+        for _ in log_file:
             lines += 1
         log_file.close()
         open(logpath, 'w').close() #overwrite with nothing
