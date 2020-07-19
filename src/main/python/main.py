@@ -159,6 +159,7 @@ class WebsocketClient(QtCore.QObject):
         self.client.open(QtCore.QUrl("ws://%s:%s"%(ip,port)))
         #self.client.open(QtCore.QUrl("ws://echo.websocket.org"))
         self.client.pong.connect(self.onPong)
+        #on a successful connection, immediately send the identification message
         self.client.connected.connect(self.send_init_message)
 
         self.client.textMessageReceived.connect(self.message_received)
@@ -178,6 +179,7 @@ class WebsocketClient(QtCore.QObject):
     def error(self, error_code):
         logging.error("error code: {}".format(error_code))
         logging.error(self.client.errorString())
+        #consider force-closing/set global_state to none, etc.a
 
     def close(self):
         self.client.close()
@@ -482,8 +484,9 @@ class data_plots(data_plot_class):
             else:
                 self.axes1.plot(global_states.x_data, global_states.temp_values, 'r') #self.axes.plot(<list of global_states.x_data values>, <list of y values>, <formatting string>)
                 self.axes2.plot(global_states.x_data, global_states.humidity_values, 'b')
-            if global_states.queue[0]["fitbit_data"][0] == "--":
-                global_states.heartrate_values.append(heartrate)
+            if global_states.queue[0]["fitbit_data"][0] == "--" or  global_states.queue[0]["fitbit_data"][0] == "0":
+                #Consider changing the behavior of no fitbit/fitbit not worn to simply not add to the graph. 
+                global_states.heartrate_values.append(self.default_heartrate)
                 self.axes3.plot(global_states.x_data, global_states.heartrate_values, 'm--')
             else:
                 global_states.heartrate_values.append(heartrate)
@@ -671,12 +674,15 @@ class ApplicationWindow(QtWidgets.QMainWindow,Ui_MainWindow):
             #tab 4 labels
             self.temperature_label.setText(global_states.queue[0]["sensor_data"][1])
             self.humiditity_label.setText(global_states.queue[0]["sensor_data"][0])
-            if global_states.queue[0]["fitbit_data"][0] != "--":
-                self.body_presence_label.setText("Body currently present on Fitbit.")
+            if global_states.queue[0]["fitbit_data"][0] == "--":
+                self.body_presence_label.setText("Fitbit is not connected.")
                 self.bpm_label.setText(global_states.queue[0]["fitbit_data"][0])
-            else:
+            elif global_states.queue[0]["fitbit_data"][0] == "0":
                 self.body_presence_label.setText("Body is not currently present on Fitbit.")
                 self.bpm_label.setText("--")
+            else:
+                self.body_presence_label.setText("Body currently present on Fitbit.")
+                self.bpm_label.setText(global_states.queue[0]["fitbit_data"][0])
             del global_states.queue[0]
         else:
             #reset all labels to initial state, *then* stop the timer
