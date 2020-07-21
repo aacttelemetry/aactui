@@ -606,9 +606,6 @@ class ApplicationWindow(QtWidgets.QMainWindow,Ui_MainWindow):
         self.prefs_dialog = PreferencesWindow()
         self.prefs_dialog.setWindowTitle("Preferences")
         self.prefs_dialog.show()
-    def open_dialog_window(self):
-        self.new_dialog = Test_Dialog()
-        self.new_dialog.show()
     def open_stream_window(self):
         self.about_dialog = StreamWindow()
         self.about_dialog.setWindowTitle("Stream Overlay")

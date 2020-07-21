@@ -22,3 +22,8 @@
 2020-07-21 15:48:20,929 - INFO - Started randomized data generation.
 2020-07-21 15:48:23,474 - DEBUG - animation toggle on
 2020-07-21 15:48:58,649 - DEBUG - Auto-disconnected global_states.main_timer.timeout signal on close.
+2020-07-21 15:50:49,940 - INFO - Started randomized data generation.
+2020-07-21 15:50:51,519 - INFO - Stopped randomized data generation.
+2020-07-21 15:50:52,919 - INFO - Started randomized data generation.
+2020-07-21 15:51:01,472 - DEBUG - animation toggle on
+2020-07-21 15:51:56,139 - DEBUG - Auto-disconnected global_states.main_timer.timeout signal on close.
