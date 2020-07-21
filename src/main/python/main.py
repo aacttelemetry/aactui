@@ -790,6 +790,7 @@ class StreamWindow(QtWidgets.QMainWindow,Ui_OverlayWindow):
         
         #any additional calcs..
 
+        #implement some delay between each change, unless a special case (no boxes checked, for example) occurs
         #figure out what data should appear on the lower-left next based on checked boxes
         states = [self.ui.environmental_checkbox.isChecked(),self.ui.athlete_checkbox.isChecked(),self.ui.data_read_checkbox.isChecked(),self.ui.cumulative_position_checkbox.isChecked(),self.ui.gps_checkbox.isChecked()]
         if any(states):
@@ -798,6 +799,68 @@ class StreamWindow(QtWidgets.QMainWindow,Ui_OverlayWindow):
                     self.cycle_index = (self.cycle_index+i)%5
                     print("cycled to index %s"%self.cycle_index)
                     break
+            #i assume there are "better" ways of doing this, but this seems clear and fast enough for our purposes
+            #though the exec+iterable combo used for preferences seems nicer, although maybe less efficient
+            #we default to displaying GPS data if everything is not available
+            if self.cycle_index == 0:
+                self.ui.variable_capital_label.setText("E")
+                self.ui.variable_remaining_label.setText("NVIRONMENTAL DATA")
+                self.ui.dynamic_label_1.setText("0")
+                self.ui.dynamic_label_2.setText("0")
+                self.ui.dynamic_label_3.setText("0")
+                self.ui.dynamic_label_4.setText("0")
+                self.ui.dynamic_label_5.setText("0")
+                self.ui.dynamic_label_6.setText("0")
+                self.ui.dynamic_label_7.setText("0")
+                self.ui.dynamic_label_8.setText("0")
+            elif self.cycle_index == 1:
+                self.ui.variable_capital_label.setText("A")
+                self.ui.variable_remaining_label.setText("THLETE DATA")
+                self.ui.dynamic_label_1.setText("1")
+                self.ui.dynamic_label_2.setText("1")
+                self.ui.dynamic_label_3.setText("1")
+                self.ui.dynamic_label_4.setText("1")
+                self.ui.dynamic_label_5.setText("1")
+                self.ui.dynamic_label_6.setText("1")
+                self.ui.dynamic_label_7.setText("1")
+                self.ui.dynamic_label_8.setText("1")
+            elif self.cycle_index == 2:
+                self.ui.variable_capital_label.setText("D")
+                self.ui.variable_remaining_label.setText("ATA TRANSFER")
+                self.ui.dynamic_label_1.setText("2")
+                self.ui.dynamic_label_2.setText("2")
+                self.ui.dynamic_label_3.setText("2")
+                self.ui.dynamic_label_4.setText("2")
+                self.ui.dynamic_label_5.setText("2")
+                self.ui.dynamic_label_6.setText("2")
+                self.ui.dynamic_label_7.setText("2")
+                self.ui.dynamic_label_8.setText("2")
+            elif self.cycle_index == 3:
+                self.ui.variable_capital_label.setText("C")
+                self.ui.variable_remaining_label.setText("UMULATIVE POSITIONING")
+                self.ui.dynamic_label_1.setText("3")
+                self.ui.dynamic_label_2.setText("3")
+                self.ui.dynamic_label_3.setText("3")
+                self.ui.dynamic_label_4.setText("3")
+                self.ui.dynamic_label_5.setText("3")
+                self.ui.dynamic_label_6.setText("3")
+                self.ui.dynamic_label_7.setText("3")
+                self.ui.dynamic_label_8.setText("3")
+            elif self.cycle_index == 4:
+                self.ui.variable_capital_label.setText("E")
+                self.ui.variable_remaining_label.setText("XTRA GPS DATA")
+                self.ui.dynamic_label_1.setText("4")
+                self.ui.dynamic_label_2.setText("4")
+                self.ui.dynamic_label_3.setText("4")
+                self.ui.dynamic_label_4.setText("4")
+                self.ui.dynamic_label_5.setText("4")
+                self.ui.dynamic_label_6.setText("4")
+                self.ui.dynamic_label_7.setText("4")
+                self.ui.dynamic_label_8.setText("4")
+            else:
+                #i dont know how this could possibly occur but here it is
+                logging.error("cycle index is %s and it shouldn't be"%self.cycle_index)
+
         else:
             #what behavior should occur here?
             print("all boxes unchecked")
@@ -826,6 +889,14 @@ class PreferencesWindow(QtWidgets.QMainWindow,Ui_PreferencesWindow):
 
         #load prefs
         data = get_prefs()
+        '''we can also have a list containing every qlineedit object, then iterate over that as below:
+        
+        lineedits = [...]
+        for lineedit in lineedits:
+            lineedit.setText(...)
+
+        maybe worth performance testing in the future
+        '''
         for i in herctools.preferences_mapping:
             exec('self.ui.%s.setText(%s)'%(i,herctools.preferences_mapping[i]))
     def toggle_advanced(self):
