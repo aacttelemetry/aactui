@@ -801,7 +801,6 @@ class StreamWindow(QtWidgets.QMainWindow,Ui_OverlayWindow):
                     break
             #i assume there are "better" ways of doing this, but this seems clear and fast enough for our purposes
             #though the exec+iterable combo used for preferences seems nicer, although maybe less efficient
-            #we default to displaying GPS data if everything is not available
             if self.cycle_index == 0:
                 self.ui.variable_capital_label.setText("E")
                 self.ui.variable_remaining_label.setText("NVIRONMENTAL DATA")
