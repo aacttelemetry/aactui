@@ -163,7 +163,7 @@ class WebsocketClient(QtCore.QObject):
         #self.client.open(QtCore.QUrl("ws://echo.websocket.org"))
         self.client.pong.connect(self.onPong)
         #on a successful connection, immediately send the identification message
-        self.client.connected.connect(self.send_init_message)
+        self.client.updating.connect(self.send_init_message)
 
         self.client.textMessageReceived.connect(self.message_received)
 
@@ -678,7 +678,7 @@ class ApplicationWindow(QtWidgets.QMainWindow,Ui_MainWindow):
             self.temperature_label.setText(global_states.queue[0]["sensor_data"][1])
             self.humiditity_label.setText(global_states.queue[0]["sensor_data"][0])
             if global_states.queue[0]["fitbit_data"][0] == "--":
-                self.body_presence_label.setText("Fitbit is not connected.")
+                self.body_presence_label.setText("Fitbit is not updating.")
                 self.bpm_label.setText(global_states.queue[0]["fitbit_data"][0])
             elif global_states.queue[0]["fitbit_data"][0] == "0":
                 self.body_presence_label.setText("Body is not currently present on Fitbit.")
@@ -766,13 +766,55 @@ class StreamWindow(QtWidgets.QMainWindow,Ui_OverlayWindow):
         super().__init__()
         self.ui = Ui_OverlayWindow()
         self.ui.setupUi(self)
-        self.ui.start_updating_button.clicked.connect(self.start_anim)
+        self.ui.start_updating_button.clicked.connect(self.toggle_updating)
+        self.ui.help_button.clicked.connect(self.test_boxes)
+
+        self.updating = False
+        self.cycle_index = 0
+        #self.aboutToQuit.connect(self.quitting)
         #self.ui.test_icon.setPixmap(QtGui.QPixmap('C:/Users/Kisun/Desktop/ui-new/src/main/resources/flag-test.svg'))
         #self.ui.test_icon.setPixmap(QtGui.QPixmap('flag.png'))
-    def start_anim(self):
-        global_states.main_timer.timeout.connect(self.update_labels)
+    def closeEvent(self, event):
+        if self.updating:
+            global_states.main_timer.timeout.disconnect(self.update_labels)
+            logging.debug("Auto-disconnected global_states.main_timer.timeout signal on close.")
+        # close window
+        event.accept()
+    def toggle_updating(self):
+        if not self.updating:
+            global_states.main_timer.timeout.connect(self.update_labels)
+            logging.debug("animation toggle on")
+            self.updating = True
+        else:
+            global_states.main_timer.timeout.disconnect(self.update_labels)
+            logging.debug("animation toggle off")
+            self.updating = False
     def update_labels(self):
+        
+        #any additional calcs..
+
+        #figure out what data should appear on the lower-left next based on checked boxes
+        states = [self.ui.environmental_checkbox.isChecked(),self.ui.athelete_checkbox.isChecked(),self.ui.data_read_checkbox.isChecked(),self.ui.cumulative_position_checkbox.isChecked(),self.ui.gps_checkbox.isChecked()]
+        if any(states):
+            for i in range(1,6):
+                if states[(self.cycle_index+i)%5]:
+                    self.cycle_index = (self.cycle_index+i)%5
+                    print("cycled to index %s"%self.cycle_index)
+                    break
+        else:
+            #what behavior should occur here?
+            print("all boxes unchecked")
+
+        #update everything else
         self.ui.next_obstacle_label.setText(str(global_states.queue[0]["timestamp"]))
+        print("updated labels at%s"%math.floor(time.time()))
+    def test_boxes(self):
+        #correct athlete - athelete
+        states = [self.ui.environmental_checkbox.isChecked(),self.ui.athelete_checkbox.isChecked(),self.ui.data_read_checkbox.isChecked(),self.ui.cumulative_position_checkbox.isChecked(),self.ui.gps_checkbox.isChecked()]
+        for i in range(1,6):
+            if states[(self.cycle_index+i)%5]:
+                self.cycle_index = (self.cycle_index+i)%5
+                print("cycled to index %s"%self.cycle_index) 
 
 class PreferencesWindow(QtWidgets.QMainWindow,Ui_PreferencesWindow):
     def __init__(self):
