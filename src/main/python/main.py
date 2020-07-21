@@ -30,8 +30,6 @@ from matplotlib.figure import Figure
 #-----------#
 import herctools
 from new2020 import Ui_MainWindow
-from testwindow import Ui_MainWindow2
-from testdialog import Ui_Dialog
 from streamoverlay import Ui_OverlayWindow
 from preferences import Ui_PreferencesWindow
 #-----------#
@@ -478,7 +476,7 @@ class data_plots(data_plot_class):
             if global_states.queue[0]["fitbit_data"][0] == "--":
                 heartrate = self.default_heartrate
             else:
-                heartrate = int(global_states.queue[0]["fitbit_data"][0])
+                heartrate = float(global_states.queue[0]["fitbit_data"][0])
 
             self.axes1.cla()
             self.axes2.cla()
@@ -762,7 +760,8 @@ class ApplicationWindow(QtWidgets.QMainWindow,Ui_MainWindow):
 class StreamWindow(QtWidgets.QMainWindow,Ui_OverlayWindow):
     #the icon will show with the use of qt resource files, but will normally fail without absolute references
     #consider trying to use fbs's resource system instead?
-    #radio buttons are grouped incorrectly, will probably remove those radio buttons and replace with "color for keyable - lineedit - button('set')"
+    
+    #it would be a good idea to disconnect the slot on close, in addition to a button
     def __init__(self):
         super().__init__()
         self.ui = Ui_OverlayWindow()
@@ -771,9 +770,9 @@ class StreamWindow(QtWidgets.QMainWindow,Ui_OverlayWindow):
         #self.ui.test_icon.setPixmap(QtGui.QPixmap('C:/Users/Kisun/Desktop/ui-new/src/main/resources/flag-test.svg'))
         #self.ui.test_icon.setPixmap(QtGui.QPixmap('flag.png'))
     def start_anim(self):
-        self.ui.variable_remaining_label.startAnimation()
-        print("ok")
-        #self.ui.test_anim_label.startAnimation()
+        global_states.main_timer.timeout.connect(self.update_labels)
+    def update_labels(self):
+        self.ui.next_obstacle_label.setText(str(global_states.queue[0]["timestamp"]))
 
 class PreferencesWindow(QtWidgets.QMainWindow,Ui_PreferencesWindow):
     def __init__(self):
@@ -814,15 +813,6 @@ class PreferencesWindow(QtWidgets.QMainWindow,Ui_PreferencesWindow):
         logging.info('Updated preferences.')
         self.close()
 
-
-class Test_Dialog(QtWidgets.QDialog):
-    def __init__(self):
-        super().__init__()
-        self.ui = Ui_Dialog()
-        self.ui.setupUi(self)
-        global_states.main_timer.timeout.connect(self.update_data)
-    def update_data(self):
-        self.ui.label.setText(str(global_states.last_queued_timestamp))
 #endregion
 try:
 #region execution
