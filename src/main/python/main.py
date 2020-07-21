@@ -791,7 +791,7 @@ class StreamWindow(QtWidgets.QMainWindow,Ui_OverlayWindow):
         #any additional calcs..
 
         #figure out what data should appear on the lower-left next based on checked boxes
-        states = [self.ui.environmental_checkbox.isChecked(),self.ui.athelete_checkbox.isChecked(),self.ui.data_read_checkbox.isChecked(),self.ui.cumulative_position_checkbox.isChecked(),self.ui.gps_checkbox.isChecked()]
+        states = [self.ui.environmental_checkbox.isChecked(),self.ui.athlete_checkbox.isChecked(),self.ui.data_read_checkbox.isChecked(),self.ui.cumulative_position_checkbox.isChecked(),self.ui.gps_checkbox.isChecked()]
         if any(states):
             for i in range(1,6):
                 if states[(self.cycle_index+i)%5]:
@@ -807,7 +807,7 @@ class StreamWindow(QtWidgets.QMainWindow,Ui_OverlayWindow):
         print("updated labels at%s"%math.floor(time.time()))
     def test_boxes(self):
         #correct athlete - athelete
-        states = [self.ui.environmental_checkbox.isChecked(),self.ui.athelete_checkbox.isChecked(),self.ui.data_read_checkbox.isChecked(),self.ui.cumulative_position_checkbox.isChecked(),self.ui.gps_checkbox.isChecked()]
+        states = [self.ui.environmental_checkbox.isChecked(),self.ui.athlete_checkbox.isChecked(),self.ui.data_read_checkbox.isChecked(),self.ui.cumulative_position_checkbox.isChecked(),self.ui.gps_checkbox.isChecked()]
         for i in range(1,6):
             if states[(self.cycle_index+i)%5]:
                 self.cycle_index = (self.cycle_index+i)%5

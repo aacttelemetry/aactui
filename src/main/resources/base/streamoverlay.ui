@@ -1161,7 +1161,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QCheckBox" name="athelete_checkbox">
+          <widget class="QCheckBox" name="athlete_checkbox">
            <property name="text">
             <string>Athlete data</string>
            </property>
