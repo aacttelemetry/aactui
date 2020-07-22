@@ -163,7 +163,7 @@ class WebsocketClient(QtCore.QObject):
         #self.client.open(QtCore.QUrl("ws://echo.websocket.org"))
         self.client.pong.connect(self.onPong)
         #on a successful connection, immediately send the identification message
-        self.client.updating.connect(self.send_init_message)
+        self.client.connected.connect(self.send_init_message)
 
         self.client.textMessageReceived.connect(self.message_received)
 
@@ -675,7 +675,7 @@ class ApplicationWindow(QtWidgets.QMainWindow,Ui_MainWindow):
             self.temperature_label.setText(global_states.queue[0]["sensor_data"][1])
             self.humiditity_label.setText(global_states.queue[0]["sensor_data"][0])
             if global_states.queue[0]["fitbit_data"][0] == "--":
-                self.body_presence_label.setText("Fitbit is not updating.")
+                self.body_presence_label.setText("Fitbit is not connected.")
                 self.bpm_label.setText(global_states.queue[0]["fitbit_data"][0])
             elif global_states.queue[0]["fitbit_data"][0] == "0":
                 self.body_presence_label.setText("Body is not currently present on Fitbit.")
