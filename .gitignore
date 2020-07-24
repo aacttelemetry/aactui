@@ -2,3 +2,4 @@
 /.vscode
 /target
 /cache
+src/main/python/mongodbex.py
