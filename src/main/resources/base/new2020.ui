@@ -167,22 +167,39 @@
           </property>
           <layout class="QHBoxLayout" name="horizontalLayout_5">
            <item>
-            <widget class="QPushButton" name="connect_gsheets_button">
-             <property name="minimumSize">
-              <size>
-               <width>181</width>
-               <height>51</height>
-              </size>
-             </property>
-             <property name="text">
-              <string>Read from Google Sheets</string>
-             </property>
-            </widget>
+            <layout class="QVBoxLayout" name="verticalLayout_16">
+             <item>
+              <widget class="QPushButton" name="connect_external_button">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="minimumSize">
+                <size>
+                 <width>181</width>
+                 <height>0</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>Read from Google Sheets</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="toggle_external_button">
+               <property name="text">
+                <string>Switch to MongoDB Atlas</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
            </item>
            <item>
             <layout class="QGridLayout" name="gridLayout_4">
              <item row="1" column="2">
-              <widget class="QLabel" name="label_7">
+              <widget class="QLabel" name="external_3_label">
                <property name="text">
                 <string>Start from row:</string>
                </property>
@@ -192,21 +209,21 @@
               </widget>
              </item>
              <item row="1" column="3">
-              <widget class="QLineEdit" name="sheet_row_edit">
+              <widget class="QLineEdit" name="external_3_edit">
                <property name="placeholderText">
                 <string>1 - infinity</string>
                </property>
               </widget>
              </item>
              <item row="1" column="1">
-              <widget class="QLineEdit" name="sheet_range_edit">
+              <widget class="QLineEdit" name="external_2_edit">
                <property name="placeholderText">
                 <string>Enter a valid range</string>
                </property>
               </widget>
              </item>
              <item row="0" column="0">
-              <widget class="QLabel" name="label_5">
+              <widget class="QLabel" name="external_1_label">
                <property name="text">
                 <string>Spreadsheet ID:</string>
                </property>
@@ -216,7 +233,7 @@
               </widget>
              </item>
              <item row="1" column="0">
-              <widget class="QLabel" name="label_6">
+              <widget class="QLabel" name="external_2_label">
                <property name="text">
                 <string>Range:</string>
                </property>
@@ -226,14 +243,14 @@
               </widget>
              </item>
              <item row="0" column="1" colspan="3">
-              <widget class="QLineEdit" name="sheet_id_edit">
+              <widget class="QLineEdit" name="external_1_edit">
                <property name="placeholderText">
                 <string>Enter spreadsheet ID (not the link)</string>
                </property>
               </widget>
              </item>
              <item row="1" column="4">
-              <widget class="QPushButton" name="sheets_load_button">
+              <widget class="QPushButton" name="external_load_button">
                <property name="toolTip">
                 <string>Load saved values for these fields from the preferences file.</string>
                </property>
@@ -243,7 +260,7 @@
               </widget>
              </item>
              <item row="0" column="4">
-              <widget class="QPushButton" name="sheets_save_button">
+              <widget class="QPushButton" name="external_save_button">
                <property name="toolTip">
                 <string>Save currently inputted values to the preferences file.</string>
                </property>
