@@ -3,3 +3,4 @@
 /target
 /cache
 src/main/python/mongodbex.py
+src/main/python/bigthreadex.py
