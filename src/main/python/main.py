@@ -606,22 +606,14 @@ class ApplicationWindow(QtWidgets.QMainWindow,Ui_MainWindow):
         logging.debug("Cleared %s lines in log.txt"%lines) #technically it also adds this but then we know who to blame for a blank log file
     def open_prefs_window(self):
         self.prefs_dialog = PreferencesWindow()
-        self.prefs_dialog.setWindowTitle("Preferences")
         self.prefs_dialog.show()
     def open_stream_window(self):
         self.about_dialog = StreamWindow()
-        self.about_dialog.setWindowTitle("Stream Overlay")
         self.about_dialog.show()
     def start_reading_socket(self):
         socket_connect()
         global_states.main_timer.start(1000)
     def start_reading_external(self):
-        '''
-        self.auth_dialog = AuthDialog()
-        self.auth_dialog.setWindowTitle("MongoDB Authentication")
-        value = self.auth_dialog.exec_()
-        print(value)
-        '''
         values = AuthDialog.launch()
         print(values)
     def start_reading_debug_random(self):
@@ -774,6 +766,7 @@ class StreamWindow(QtWidgets.QMainWindow,Ui_OverlayWindow):
         super().__init__()
         self.ui = Ui_OverlayWindow()
         self.ui.setupUi(self)
+        self.setWindowTitle("Stream Overlay")
         self.ui.start_updating_button.clicked.connect(self.toggle_updating)
         self.ui.help_button.clicked.connect(self.test_boxes)
 
@@ -891,6 +884,7 @@ class PreferencesWindow(QtWidgets.QMainWindow,Ui_PreferencesWindow):
         super().__init__()
         self.ui = Ui_PreferencesWindow()
         self.ui.setupUi(self)
+        self.setWindowTitle("Preferences")
         self.ui.save_prefs_button.clicked.connect(self.save_prefs)
         self.ui.toggle_variables_button.clicked.connect(self.toggle_advanced)
 
