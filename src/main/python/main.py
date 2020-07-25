@@ -32,6 +32,7 @@ import herctools
 from new2020 import Ui_MainWindow
 from streamoverlay import Ui_OverlayWindow
 from preferences import Ui_PreferencesWindow
+from dbauthdialog import Ui_AuthDialog
 #-----------#
 #get paths and initiate logging
 #auto-save to file using basicConfig
@@ -552,9 +553,10 @@ class ApplicationWindow(QtWidgets.QMainWindow,Ui_MainWindow):
         self.connect_raspi_button.clicked.connect(self.ws_connect)
         self.socket_load_button.clicked.connect(self.load_socket_values)
         self.socket_save_button.clicked.connect(self.save_socket_values)
-        self.sheets_load_button.clicked.connect(self.load_sheet_values)
-        self.sheets_save_button.clicked.connect(self.save_sheet_values)
+        self.external_load_button.clicked.connect(self.load_external_values)
+        self.external_save_button.clicked.connect(self.save_external_values)
         self.open_db_button.clicked.connect(self.open_db_file_dialog)
+        self.connect_external_button.clicked.connect(self.start_reading_external)
 
         #tab 2 - data uploading
 
@@ -613,6 +615,15 @@ class ApplicationWindow(QtWidgets.QMainWindow,Ui_MainWindow):
     def start_reading_socket(self):
         socket_connect()
         global_states.main_timer.start(1000)
+    def start_reading_external(self):
+        '''
+        self.auth_dialog = AuthDialog()
+        self.auth_dialog.setWindowTitle("MongoDB Authentication")
+        value = self.auth_dialog.exec_()
+        print(value)
+        '''
+        values = AuthDialog.launch()
+        print(values)
     def start_reading_debug_random(self):
         if global_states.data_source != "Debug":
             global_states.data_source = "Debug"
@@ -717,12 +728,12 @@ class ApplicationWindow(QtWidgets.QMainWindow,Ui_MainWindow):
         data['strings']['raspberry_port'] = self.rpi_port_edit.text()
         write_prefs(data)
         logging.info('Saved socket values.')
-    def load_sheet_values(self):
+    def load_external_values(self):
         data = get_prefs()
         self.sheet_id_edit.setText(data['strings']['spreadsheet_id'])
         self.sheet_range_edit.setText(data['strings']['spreadsheet_range'])
         logging.info('Loaded sheet values.')
-    def save_sheet_values(self):
+    def save_external_values(self):
         data = get_prefs()
         data['strings']['spreadsheet_id'] = self.sheet_id_edit.text()
         data['strings']['spreadsheet_range'] = self.sheet_range_edit.text()
@@ -922,6 +933,23 @@ class PreferencesWindow(QtWidgets.QMainWindow,Ui_PreferencesWindow):
         logging.info('Updated preferences.')
         self.close()
 
+class AuthDialog(QtWidgets.QDialog,Ui_AuthDialog):
+    #see this link for returning values from a dialog as if it were a normal function
+    #https://stackoverflow.com/questions/37411750/pyqt-qdialog-return-response-yes-or-no
+    def __init__(self):
+        super().__init__()
+        self.ui = Ui_AuthDialog()
+        self.ui.setupUi(self)
+        self.setWindowTitle("MongoDB Authentication")
+    def getValues(self):
+        return (self.ui.username_edit.text(),self.ui.password_edit.text())
+    @staticmethod
+    def launch():
+        dlg = AuthDialog()
+        r = dlg.exec_() #Using exec_() opens this window and blocks all other windows until this one is closed.
+        if r:
+            return dlg.getValues()
+        return None
 #endregion
 try:
 #region execution
