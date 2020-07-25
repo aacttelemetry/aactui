@@ -557,6 +557,9 @@ class ApplicationWindow(QtWidgets.QMainWindow,Ui_MainWindow):
         self.external_save_button.clicked.connect(self.save_external_values)
         self.open_db_button.clicked.connect(self.open_db_file_dialog)
         self.connect_external_button.clicked.connect(self.start_reading_external)
+        self.toggle_external_button.clicked.connect(self.toggle_external_values)
+
+        self.external = 0 #0 = gsheets, 1 = mongodb atlas
 
         #tab 2 - data uploading
 
@@ -610,12 +613,41 @@ class ApplicationWindow(QtWidgets.QMainWindow,Ui_MainWindow):
     def open_stream_window(self):
         self.about_dialog = StreamWindow()
         self.about_dialog.show()
+    def toggle_external_values(self):
+        if self.external == 0:
+            #maybe it's time to give these group boxes names then
+            self.external = 1
+            self.toggle_external_button.setText("Switch to Google Sheets")
+            self.connect_external_button.setText("Read from MongoDB Atlas")
+            self.groupBox_3.setTitle("Data Transfer: MongoDB Atlas")
+            self.external_1_label.setText("Host Address:")
+            self.external_1_edit.setPlaceholderText("Enter the hostname. Might look like ~.mongodb.net.")
+            self.external_2_label.setText("Database:")
+            #note somewhere that the collection "main" will be used
+            self.external_2_edit.setPlaceholderText("Enter database name")
+            self.external_3_label.setText("Start from:")
+            self.external_3_edit.setPlaceholderText("Enter timestamp")
+        elif self.external == 1:
+            self.external = 0
+            self.toggle_external_button.setText("Switch to MongoDB Atlas")
+            self.connect_external_button.setText("Read from Google Sheets")
+            self.groupBox_3.setTitle("Data Transfer: Google Sheets")
+            self.external_1_label.setText("Spreadsheet ID:")
+            self.external_1_edit.setPlaceholderText("Enter spreadsheet ID (not the link)")
+            self.external_2_label.setText("Range:")
+            #note somewhere that the collection "main" will be used
+            self.external_2_edit.setPlaceholderText("Enter a valid range")
+            self.external_3_label.setText("Start from row:")
+            self.external_3_edit.setPlaceholderText("1 - infinity")
     def start_reading_socket(self):
         socket_connect()
         global_states.main_timer.start(1000)
     def start_reading_external(self):
-        values = AuthDialog.launch()
-        print(values)
+        if self.external == 0:
+            pass
+        elif self.external == 1:
+            values = AuthDialog.launch()
+            print(values)
     def start_reading_debug_random(self):
         if global_states.data_source != "Debug":
             global_states.data_source = "Debug"
