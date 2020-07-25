@@ -753,16 +753,33 @@ class ApplicationWindow(QtWidgets.QMainWindow,Ui_MainWindow):
         write_prefs(data)
         logging.info('Saved socket values.')
     def load_external_values(self):
-        data = get_prefs()
-        self.sheet_id_edit.setText(data['strings']['spreadsheet_id'])
-        self.sheet_range_edit.setText(data['strings']['spreadsheet_range'])
-        logging.info('Loaded sheet values.')
+        if self.external == 0:
+            data = get_prefs()
+            self.external_1_edit.setText(data['strings']['spreadsheet_id'])
+            self.external_2_edit.setText(data['strings']['spreadsheet_range'])
+            self.external_3_edit.setText(data['strings']['spreadsheet_starting_row'])
+            logging.info('Loaded Google Sheets values.')
+        elif self.external == 1:
+            data = get_prefs()
+            self.external_1_edit.setText(data['strings']['mongodb_host'])
+            self.external_2_edit.setText(data['strings']['mongodb_database_name'])
+            self.external_3_edit.setText(data['strings']['mongodb_starting_timestamp'])
+            logging.info('Loaded MongoDB Atlas values.')
     def save_external_values(self):
-        data = get_prefs()
-        data['strings']['spreadsheet_id'] = self.sheet_id_edit.text()
-        data['strings']['spreadsheet_range'] = self.sheet_range_edit.text()
-        write_prefs(data)
-        logging.info('Saved sheet values.')
+        if self.external == 0:
+            data = get_prefs()
+            data['strings']['spreadsheet_id'] = self.external_1_edit.text()
+            data['strings']['spreadsheet_range'] = self.external_2_edit.text()
+            data['strings']['spreadsheet_starting_row'] = self.external_3_edit.text()
+            write_prefs(data)
+            logging.info('Saved Google Sheets values.')
+        elif self.external == 1:
+            data = get_prefs()
+            data['strings']['mongodb_host'] = self.external_1_edit.text()
+            data['strings']['mongodb_database_name'] = self.external_2_edit.text()
+            data['strings']['mongodb_starting_timestamp'] = self.external_3_edit.text()
+            write_prefs(data)
+            logging.info('Saved MongoDB Atlas values.')
     #lambdas?
     def open_herc_book(self):
         webbrowser.open("https://www.nasa.gov/sites/default/files/atoms/files/edu_herc-guidebook_2020v2.pdf")

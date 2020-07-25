@@ -13,7 +13,7 @@
     },
     "debug": {
         "disable_font_debug": true,
-        "logging_level":"DEBUG",
+        "logging_level": "DEBUG",
         "plotting": {
             "longitude_offset": "0",
             "latitude_offset": "0"

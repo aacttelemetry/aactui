@@ -60,3 +60,9 @@
 2020-07-25 15:20:18,082 - INFO - Connecting to Raspberry Pi via Websockets...
 2020-07-25 15:20:18,192 - ERROR - error code: 2
 2020-07-25 15:20:18,192 - ERROR - Host not found
+2020-07-25 16:53:47,190 - INFO - Saved Google Sheets values.
+2020-07-25 16:53:56,426 - INFO - Saved MongoDB Atlas values.
+2020-07-25 16:54:01,097 - INFO - Loaded Google Sheets values.
+2020-07-25 16:54:02,757 - INFO - Loaded MongoDB Atlas values.
+2020-07-25 16:54:08,278 - INFO - Saved MongoDB Atlas values.
+2020-07-25 16:54:12,016 - INFO - Saved Google Sheets values.
