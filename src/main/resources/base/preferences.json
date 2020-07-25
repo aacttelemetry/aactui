@@ -4,6 +4,10 @@
         "raspberry_port": "8765",
         "spreadsheet_id": "-",
         "spreadsheet_range": "-",
+        "spreadsheet_starting_row": "-",
+        "mongodb_host": "-",
+        "mongodb_database_name": "-",
+        "mongodb_starting_timestamp": "-",
         "stream_key": "-",
         "livestream_ip": "-"
     },

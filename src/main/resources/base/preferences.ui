@@ -18,7 +18,7 @@
     <item row="0" column="0" colspan="2">
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>1</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">
@@ -411,23 +411,66 @@
               </property>
              </widget>
             </item>
-            <item row="5" column="0">
+            <item row="9" column="0">
              <widget class="QLineEdit" name="stream_key_edit"/>
             </item>
-            <item row="5" column="1">
+            <item row="9" column="1">
              <widget class="QLabel" name="stream_key_label">
               <property name="text">
                <string>Stored key for streaming, if applicable. Use in OBS Studio.</string>
               </property>
              </widget>
             </item>
-            <item row="6" column="0">
+            <item row="10" column="0">
              <widget class="QLineEdit" name="rpi_stream_edit"/>
             </item>
-            <item row="6" column="1">
+            <item row="10" column="1">
              <widget class="QLabel" name="rpi_stream_label">
               <property name="text">
                <string>Full IP address and port of the Raspberry Pi handling video streaming.</string>
+              </property>
+             </widget>
+            </item>
+            <item row="5" column="0">
+             <widget class="QLineEdit" name="gsheets_row_edit"/>
+            </item>
+            <item row="6" column="0">
+             <widget class="QLineEdit" name="mongodb_host_edit"/>
+            </item>
+            <item row="7" column="0">
+             <widget class="QLineEdit" name="mongodb_database_edit"/>
+            </item>
+            <item row="8" column="0">
+             <widget class="QLineEdit" name="mongodb_timestamp_edit"/>
+            </item>
+            <item row="5" column="1">
+             <widget class="QLabel" name="gsheets_row_label">
+              <property name="text">
+               <string>Starting row for the Google Sheets spreadsheet.</string>
+              </property>
+             </widget>
+            </item>
+            <item row="6" column="1">
+             <widget class="QLabel" name="mongodb_host_label">
+              <property name="text">
+               <string>MongoDB Atlas host address. </string>
+              </property>
+             </widget>
+            </item>
+            <item row="7" column="1">
+             <widget class="QLabel" name="mongodb_database_label">
+              <property name="text">
+               <string>Default MongoDB database. Note that the collection &quot;main&quot; is always used (and may be created if it does not exist on the given database).</string>
+              </property>
+              <property name="wordWrap">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="8" column="1">
+             <widget class="QLabel" name="mongodb_timestamp_label">
+              <property name="text">
+               <string>Starting timestamp for reading from MongoDB Atlas.</string>
               </property>
              </widget>
             </item>

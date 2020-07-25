@@ -11,6 +11,7 @@ def pressure_to_height(pressure, places=2):
         return round(math.log((float(pressure)/1000)/101.325)/-0.00012,places)
 
 preferences_mapping = {
+    "debug_level_edit":"data['debug']['logging_level']",
     "offset_longitude_edit":"data['debug']['plotting']['longitude_offset']",
     "debug_heartrate_edit":"data['debug']['randomization_init']['heartrate']",
     "debug_pressure_edit":"data['debug']['randomization_init']['air_pressure']",
@@ -36,6 +37,10 @@ preferences_mapping = {
     "rpi_port_edit":"data['strings']['raspberry_port']",
     "gsheets_id_edit":"data['strings']['spreadsheet_id']",
     "gsheets_range_edit":"data['strings']['spreadsheet_range']",
+    "gsheets_row_edit":"data['strings']['spreadsheet_starting_row']",
+    "mongodb_host_edit":"data['strings']['mongodb_host']",
+    "mongodb_database_edit":"data['strings']['mongodb_database_name']",
+    "mongodb_timestamp_edit":"data['strings']['mongodb_starting_timestamp']",
     "stream_key_edit":"data['strings']['stream_key']",
     "rpi_stream_edit":"data['strings']['livestream_ip']"
 }
@@ -65,8 +70,12 @@ label_toggles = {
     "timeout_label":["Number of max failed reads from a data source before the client stops trying.","global_states.timeout = int"],
     "rpi_ip_label":["IP address of Raspberry Pi handling most of the data.","self.rpi_ip_edit"],
     "rpi_port_label":["Port of Raspberry Pi handling most data (same as above).","self.rpi_port_edit"],
-    "gsheets_id_label":["ID of the Google Sheets spreadsheet for reading and writing data.","self.sheet_id_edit"],
-    "gsheets_range_label":["Range to use for the Google Sheets spreadsheet.","self.sheet_range_edit"],
+    "gsheets_id_label":["ID of the Google Sheets spreadsheet for reading and writing data.","self.external_1_edit"],
+    "gsheets_range_label":["Range to use for the Google Sheets spreadsheet.","self.external_2_edit"],
+    "gsheets_row_label":["Starting row for the Google Sheets spreadsheet.","self.external_3_edit"],
+    "mongodb_host_label":["MongoDB Atlas host address.","self.external_1_edit"],
+    "mongodb_database_label":['Default MongoDB database. Note that the collection "main" is always used (and may be created if it does not exist on the given database).',"self.external_2_edit"],
+    "mongodb_timestamp_label":["Starting timestamp for reading from MongoDB Atlas.","self.external_3_edit"],
     "stream_key_label":["Stored key for streaming, if applicable. Use in OBS Studio.","self.livestream_ip_edit"],
     "rpi_stream_label":["Full IP address and port of the Raspberry Pi handling video streaming.","self.stream_key_edit"]
 }

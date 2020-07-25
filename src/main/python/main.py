@@ -763,6 +763,7 @@ class ApplicationWindow(QtWidgets.QMainWindow,Ui_MainWindow):
         data['strings']['spreadsheet_range'] = self.sheet_range_edit.text()
         write_prefs(data)
         logging.info('Saved sheet values.')
+    #lambdas?
     def open_herc_book(self):
         webbrowser.open("https://www.nasa.gov/sites/default/files/atoms/files/edu_herc-guidebook_2020v2.pdf")
     def open_obstacle_table(self):
