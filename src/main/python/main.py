@@ -576,7 +576,8 @@ class ApplicationWindow(QtWidgets.QMainWindow,Ui_MainWindow):
         self.open_website_button.clicked.connect(self.open_website)
         self.open_data_button.clicked.connect(self.open_data_spreadsheet)
         self.open_overlay_button.clicked.connect(self.open_stream_window)
-        self.ts_human_button.clicked.connect(self.find_equivalent_row)  
+        self.ts_human_button.clicked.connect(self.timestamp_to_human)
+        self.human_ts_button.clicked.connect(self.human_to_timestamp)  
         self.save_stream_values_button.clicked.connect(self.save_stream_values)
         self.load_stream_values_button.clicked.connect(self.load_stream_values)
 
@@ -724,17 +725,25 @@ class ApplicationWindow(QtWidgets.QMainWindow,Ui_MainWindow):
             #reset all labels to initial state, *then* stop the timer
             pass
             #global_states.main_timer.stop()f
-    def convert_timestamp(self):
-        pass
-        #val = self.lineedit.text()
-    def find_equivalent_row(self):
+    def human_to_timestamp(self):
+        to_edit = str(math.floor(self.dateTimeEdit.dateTime().toPyDateTime().timestamp()))
+        self.timestamp_edit.setText(to_edit)
+    def timestamp_to_human(self):
+        '''
         #QtCore.QDateTime
         now = QtCore.QDateTime(datetime.now())
         print(now)
         print(self.dateTimeEdit.dateTime().toPyDateTime()) #to native python datetime object ("yyyy-mm-dd hh:mm:ss")
-        print(self.dateTimeEdit.dateTime().toPyDateTime().timestamp()) #unix timestamp
+        print(self.dateTimeEdit.dateTime().toPyDateTime().timestamp()) #unix timestamp (as float)
         print(time.time()) #unix timestamp
         self.dateTimeEdit.setDateTime(now)
+        '''
+        if self.timestamp_edit.text() != '':
+            ts = int(self.timestamp_edit.text())
+            qdt = QtCore.QDateTime(datetime.fromtimestamp(ts))
+            self.dateTimeEdit.setDateTime(qdt)
+        else:
+            logging.info("No timestamp provided. (The current time is %s, for reference.)"%math.floor(time.time()))
     def load_stream_values(self):
         data = get_prefs()
         self.livestream_ip_edit.setText(data['strings']['livestream_ip'])
