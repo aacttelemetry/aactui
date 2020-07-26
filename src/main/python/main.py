@@ -6,6 +6,7 @@ from httplib2 import Http
 from oauth2client import file, client, tools
 from pprint import pprint
 from collections import Counter
+import datetime
 import time
 import sys
 import os
@@ -727,9 +728,13 @@ class ApplicationWindow(QtWidgets.QMainWindow,Ui_MainWindow):
         pass
         #val = self.lineedit.text()
     def find_equivalent_row(self):
-        print(self.dateTimeEdit.dateTime().toPyDateTime()) #to native python time object ("yyyy-mm-dd hh:mm:ss")
+        #QtCore.QDateTime
+        now = QtCore.QDateTime(datetime.now())
+        print(now)
+        print(self.dateTimeEdit.dateTime().toPyDateTime()) #to native python datetime object ("yyyy-mm-dd hh:mm:ss")
         print(self.dateTimeEdit.dateTime().toPyDateTime().timestamp()) #unix timestamp
         print(time.time()) #unix timestamp
+        self.dateTimeEdit.setDateTime(now)
     def load_stream_values(self):
         data = get_prefs()
         self.livestream_ip_edit.setText(data['strings']['livestream_ip'])
