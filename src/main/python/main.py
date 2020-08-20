@@ -836,6 +836,19 @@ class StreamWindow(QtWidgets.QMainWindow,Ui_OverlayWindow):
 
         self.updating = False
         self.cycle_index = 0
+        
+        '''
+        an implementation might look like 
+        
+        while true:
+            if animation_index == 0:
+                (animate stuff)
+            (update data labels)
+            self.animation_index = (self.animation_index + 1)%seconds
+
+        where seconds is the number of seconds between each animation cycle
+        '''
+        self.animation_index = 0
         #self.aboutToQuit.connect(self.quitting)
         #self.ui.test_icon.setPixmap(QtGui.QPixmap('C:/Users/Kisun/Desktop/ui-new/src/main/resources/flag-test.svg'))
         #self.ui.test_icon.setPixmap(QtGui.QPixmap('flag.png'))
